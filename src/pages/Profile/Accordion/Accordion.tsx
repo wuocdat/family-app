@@ -70,7 +70,7 @@ const ProfileItem = ({ name, content }: ProfileItemProps) => {
 };
 
 const AccordionProfile = () => {
-    const [expanded, setExpanded] = useState<string | false>('panel1');
+    const [expanded, setExpanded] = useState<string | false>(false);
 
     // set accordion to open or close
     const handleChange =

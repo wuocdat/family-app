@@ -17,28 +17,8 @@ import AccordionProfile from './Accordion/Accordion';
 import StyledMenu from '../../components/Menu/Menu';
 import { Archive, FileCopy, MoreHoriz } from '@mui/icons-material';
 import CustomModal from './Modal/Modal';
-
-const Container = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '380px',
-    height: '100vh',
-    padding: theme.spacing(2, 1, 2, 1),
-    boxSizing: 'border-box',
-    backgroundColor: '#303841',
-}));
-
-const Header = styled('div')(({ theme }) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fontSize: '22.5px',
-    width: '100%',
-    fontWeight: 500,
-    padding: theme.spacing(1, 2, 3, 2),
-    color: theme.palette.common.white,
-}));
+import SideContentContainer from '../../components/Container/SideContentContainer';
+import SideContentHeader from '../../components/Header/SideContentHeader';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -66,9 +46,9 @@ const Profile: FC = () => {
     const handleCloseModal = () => setOpenModal(false);
 
     return (
-        <Container>
+        <SideContentContainer>
             <CustomModal open={openModal} onClose={handleCloseModal} />
-            <Header>
+            <SideContentHeader>
                 <span>My Profile</span>
                 <Button onClick={handleClick}>
                     <MoreVertIcon />
@@ -96,7 +76,7 @@ const Profile: FC = () => {
                         More
                     </MenuItem>
                 </StyledMenu>
-            </Header>
+            </SideContentHeader>
             <UserProfile>
                 <Badge
                     overlap="circular"
@@ -150,7 +130,7 @@ const Profile: FC = () => {
                     backgroundColor: alpha('#fff', 0.1),
                 }}
             />
-            <Box sx={{ padding: '24px', overflowY: 'auto' }}>
+            <Box sx={{ padding: 3, overflowY: 'auto' }}>
                 <Typography
                     variant="body2"
                     sx={{
@@ -164,7 +144,7 @@ const Profile: FC = () => {
                 </Typography>
                 <AccordionProfile />
             </Box>
-        </Container>
+        </SideContentContainer>
     );
 };
 
