@@ -1,12 +1,13 @@
 import {
     alpha,
     Button,
+    capitalize,
     styled,
     Tooltip,
     tooltipClasses,
     TooltipProps,
 } from '@mui/material';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import CommentRoundedIcon from '@mui/icons-material/CommentRounded';
@@ -16,6 +17,7 @@ import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Link } from 'react-router-dom';
 import { routes } from '../../config/routes';
+import { iconConst } from '../../config/constants';
 
 const Container = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -55,10 +57,21 @@ const StyledLink = styled(Link)(({ theme }) => ({
     alignItems: 'center',
     color: theme.palette.primary.dark,
     // backgroundColor: alpha('#fff', 0.05),
+    '&.active': {
+        backgroundColor: alpha('#fff', 0.05),
+        borderRadius: theme.spacing(1),
+    },
 }));
 
 const BootstrapTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} arrow classes={{ popper: className }} />
+    <Tooltip
+        {...props}
+        placement="top"
+        disableInteractive={true}
+        arrow
+        enterNextDelay={700}
+        classes={{ popper: className }}
+    />
 ))(({ theme }) => ({
     [`& .${tooltipClasses.arrow}`]: {
         color: '#3F4E4F',
@@ -72,60 +85,68 @@ const BootstrapTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const SideMenu: FC = () => {
+    const [currentPoint, setCurrentPoint] = useState('profile');
     return (
         <Container>
             <Button>
                 <WhatsAppIcon sx={{ fontSize: '2rem' }} />
             </Button>
             <OptionWrapper>
-                <BootstrapTooltip
-                    placement="top"
-                    disableInteractive={true}
-                    title="Profile"
-                    arrow
-                >
-                    <StyledLink to={routes.profile}>
+                <BootstrapTooltip title={capitalize(iconConst.profile)}>
+                    <StyledLink
+                        className={
+                            currentPoint === iconConst.profile ? 'active' : ''
+                        }
+                        onClick={() => {
+                            setCurrentPoint(iconConst.profile);
+                        }}
+                        to={routes.profile}
+                    >
                         <PersonOutlinedIcon sx={{ fontSize: '2rem' }} />
                     </StyledLink>
                 </BootstrapTooltip>
-                <BootstrapTooltip
-                    placement="top"
-                    disableInteractive={true}
-                    title="Chats"
-                    arrow
-                >
-                    <StyledLink to={routes.chats}>
+                <BootstrapTooltip title={capitalize(iconConst.chats)}>
+                    <StyledLink
+                        className={
+                            currentPoint === iconConst.chats ? 'active' : ''
+                        }
+                        onClick={() => {
+                            setCurrentPoint(iconConst.chats);
+                        }}
+                        to={routes.chats}
+                    >
                         <CommentRoundedIcon />
                     </StyledLink>
                 </BootstrapTooltip>
-                <BootstrapTooltip
-                    placement="top"
-                    disableInteractive={true}
-                    title="Contacts"
-                    arrow
-                >
-                    <StyledLink to={routes.contacts}>
+                <BootstrapTooltip title={capitalize(iconConst.contacts)}>
+                    <StyledLink
+                        className={
+                            currentPoint === iconConst.contacts ? 'active' : ''
+                        }
+                        onClick={() => {
+                            setCurrentPoint(iconConst.contacts);
+                        }}
+                        to={routes.contacts}
+                    >
                         <ContactMailRoundedIcon />
                     </StyledLink>
                 </BootstrapTooltip>
-                <BootstrapTooltip
-                    placement="top"
-                    disableInteractive={true}
-                    title="Settings"
-                    arrow
-                >
-                    <StyledLink to={routes.settings}>
+                <BootstrapTooltip title={capitalize(iconConst.settings)}>
+                    <StyledLink
+                        className={
+                            currentPoint === iconConst.settings ? 'active' : ''
+                        }
+                        onClick={() => {
+                            setCurrentPoint(iconConst.settings);
+                        }}
+                        to={routes.settings}
+                    >
                         <SettingsRoundedIcon />
                     </StyledLink>
                 </BootstrapTooltip>
             </OptionWrapper>
             <SettingWrapper>
-                <BootstrapTooltip
-                    placement="top"
-                    disableInteractive={true}
-                    title="Light Mode"
-                    arrow
-                >
+                <BootstrapTooltip title="Light Mode">
                     <StyledLink to="/chats">
                         <LightModeRoundedIcon />
                     </StyledLink>

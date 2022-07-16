@@ -4,3 +4,10 @@ export const information = {
     age: 24,
     location: 'California, USA',
 };
+
+export const iconConst = {
+    profile: 'profile',
+    chats: 'chats',
+    contacts: 'contacts',
+    settings: 'settings',
+};
