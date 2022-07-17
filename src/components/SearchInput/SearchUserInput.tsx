@@ -1,8 +1,12 @@
 import { Search as SearchIcon } from '@mui/icons-material';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Box, IconButton, InputBase, Paper } from '@mui/material';
+import { FC } from 'react';
 
-const SearchUserInput = () => {
+interface SearchUserInputProps {
+    onSearch: () => void;
+}
+const SearchUserInput: FC<SearchUserInputProps> = ({ onSearch }) => {
     return (
         <Box sx={{ width: '100%', padding: '0 16px' }}>
             <Paper
@@ -24,9 +28,9 @@ const SearchUserInput = () => {
                     inputProps={{ 'aria-label': 'search google maps' }}
                 />
                 <IconButton
-                    type="submit"
                     sx={{ p: '10px', color: '#fff' }}
                     aria-label="search"
+                    onClick={onSearch}
                 >
                     <PersonAddAltIcon />
                 </IconButton>

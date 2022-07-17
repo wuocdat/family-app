@@ -1,19 +1,33 @@
-import { Box } from '@mui/material';
-import { flexbox } from '@mui/system';
-import { FC } from 'react';
+import { Box, Typography } from '@mui/material';
+import { FC, useState } from 'react';
 import SideContentContainer from '../../components/Container/SideContentContainer';
 import SideContentHeader from '../../components/Header/SideContentHeader';
 import SearchUserInput from '../../components/SearchInput/SearchUserInput';
+import UserItem from '../../components/UserItem/UserItem';
 import UserOfferItem from '../../components/UserItem/UserOfferItem';
-import { offerUsers } from '../../config/constants';
+import { offerUsers, userItems } from '../../config/constants';
+import ChatModal from './Modal/ChatModal';
 
 const Chats: FC = () => {
+    const [openModal, setOpenModal] = useState(false);
+    const handleModalClose = () => {
+        setOpenModal(false);
+    };
+    const handleModalOpen = () => {
+        setOpenModal(true);
+    };
     return (
         <SideContentContainer>
+            {/* header */}
             <SideContentHeader>
                 <span>Chats</span>
             </SideContentHeader>
-            <SearchUserInput />
+
+            {/* search bar */}
+            <SearchUserInput onSearch={handleModalOpen} />
+            <ChatModal open={openModal} onClose={handleModalClose} />
+
+            {/* offer user box */}
             <Box
                 sx={{
                     width: '100%',
@@ -29,6 +43,27 @@ const Chats: FC = () => {
                             name={user.shortName}
                             src={user.src}
                             active={user.active}
+                        />
+                    );
+                })}
+            </Box>
+
+            <Box color="white" sx={{ width: '100%', padding: '16px 16px 8px' }}>
+                <Typography>Recent</Typography>
+            </Box>
+
+            {/* all user */}
+            <Box sx={{ width: '100%', padding: '0 8px', overflow: 'auto' }}>
+                {userItems.map((user, index) => {
+                    const { fullName, latestMessage, active, time, src } = user;
+                    return (
+                        <UserItem
+                            key={index}
+                            fullName={fullName}
+                            src={src}
+                            active={active}
+                            time={time}
+                            latestMessage={latestMessage || 'No pain no gain'}
                         />
                     );
                 })}
