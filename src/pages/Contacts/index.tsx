@@ -1,11 +1,14 @@
+import { IconButton } from '@mui/material';
 import { Box } from '@mui/system';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import SideContentContainer from '../../components/Container/SideContentContainer';
 import SideContentHeader from '../../components/Header/SideContentHeader';
 import ContactsSearch from '../../components/SearchInput/ContactsSearch';
 import UserGroupNameItem from '../../components/UserItem/UserNameGroupItem';
 import { Users } from '../../config/constants';
 import { User, GroupType } from '../../types';
+import ContactModal from './Modal/ContactModal';
 
 const userGroups = Users.reduce((prev: GroupType[], current: User) => {
     const firstLetter = current.name.slice(0, 1);
@@ -26,10 +29,21 @@ const userGroups = Users.reduce((prev: GroupType[], current: User) => {
 userGroups.sort((a, b) => a.type.localeCompare(b.type));
 
 const Contacts: FC = () => {
+    const [openModal, setOpenModal] = useState(false);
+    const handleClick = () => {
+        setOpenModal(true);
+    };
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
     return (
         <SideContentContainer>
             <SideContentHeader>
                 <span>Contacts</span>
+                <IconButton sx={{ color: '#fff' }} onClick={handleClick}>
+                    <PersonAddAltOutlinedIcon />
+                </IconButton>
+                <ContactModal open={openModal} onClose={handleCloseModal} />
             </SideContentHeader>
 
             <ContactsSearch />
