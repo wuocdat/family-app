@@ -1,7 +1,5 @@
 import {
     alpha,
-    Avatar,
-    Badge,
     Box,
     Divider,
     IconButton,
@@ -16,9 +14,10 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import AccordionProfile from './Accordion/Accordion';
 import StyledMenu from '../../components/Menu/Menu';
 import { Archive, FileCopy, MoreHoriz } from '@mui/icons-material';
-import CustomModal from './Modal/Modal';
 import SideContentContainer from '../../components/Container/SideContentContainer';
 import SideContentHeader from '../../components/Header/SideContentHeader';
+import BasicProfile from '../../components/BasicProfile/BasicProfile';
+import { imageSrc } from '../../config/constants';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -40,14 +39,8 @@ const Profile: FC = () => {
         setAnchorEl(null);
     };
 
-    //Modal here
-    const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => setOpenModal(true);
-    const handleCloseModal = () => setOpenModal(false);
-
     return (
         <SideContentContainer>
-            <CustomModal open={openModal} onClose={handleCloseModal} />
             <SideContentHeader>
                 <span>My Profile</span>
                 <IconButton sx={{ color: '#fff' }} onClick={handleClick}>
@@ -78,36 +71,7 @@ const Profile: FC = () => {
                 </StyledMenu>
             </SideContentHeader>
             <UserProfile>
-                <Badge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    badgeContent={
-                        <EditIcon
-                            sx={{
-                                backgroundColor: '#36404a',
-                                borderRadius: '50%',
-                                padding: '4px',
-                                cursor: 'pointer',
-                            }}
-                        />
-                    }
-                    onClick={handleOpenModal}
-                >
-                    <Avatar
-                        alt="user photo"
-                        src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D"
-                        sx={{
-                            width: 96,
-                            height: 96,
-                            border: '5px double',
-                            borderColor: alpha('#fff', 0.05),
-                        }}
-                    />
-                </Badge>
-
-                <Typography sx={{ fontSize: '16px', paddingTop: '24px' }}>
-                    Patricia Smith
-                </Typography>
+                <BasicProfile name="Patricia Smith" src={imageSrc} />
                 <Typography
                     variant="caption"
                     sx={{
