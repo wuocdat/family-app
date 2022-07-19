@@ -36,6 +36,89 @@ export const offerUsers = [
     },
 ];
 
+export const Users = [
+    {
+        id: '0',
+        name: 'Deanna Humphrey',
+        active: true,
+    },
+    {
+        id: '1',
+        name: 'Davon Riddle',
+        active: true,
+    },
+    {
+        id: '2',
+        name: 'Shyann Tucker',
+        active: false,
+    },
+    {
+        id: '3',
+        name: 'Heidy Sims',
+        active: true,
+    },
+    {
+        id: '4',
+        name: 'Eliezer Terrell',
+        active: true,
+    },
+    {
+        id: '5',
+        name: 'Curtis Whitney',
+        active: true,
+    },
+    {
+        id: '6',
+        name: 'Clara Ayers',
+        active: false,
+    },
+    {
+        id: '7',
+        name: 'Payton Schaefer',
+        active: true,
+    },
+    {
+        id: '8',
+        name: 'Patrick Morton',
+        active: true,
+    },
+    {
+        id: '9',
+        name: 'Kaylin Acevedo',
+        active: true,
+    },
+    {
+        id: '10',
+        name: 'Brenda Stone',
+        active: false,
+    },
+    {
+        id: '11',
+        name: 'Anton',
+        active: true,
+    },
+    {
+        id: '12',
+        name: 'Oscar Vang',
+        active: true,
+    },
+    {
+        id: '13',
+        name: 'Tom',
+        active: true,
+    },
+    {
+        id: '14',
+        name: 'Jay',
+        active: false,
+    },
+    {
+        id: '15',
+        name: 'Anton',
+        active: true,
+    },
+];
+
 export const imageSrc =
     'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D';
 

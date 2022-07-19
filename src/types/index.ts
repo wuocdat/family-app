@@ -5,3 +5,14 @@ export type UserItemProps = {
     time: string;
     active: boolean;
 };
+
+export type User = {
+    id: string;
+    name: string;
+    active?: boolean;
+};
+
+export interface GroupType {
+    type: string;
+    data: Array<User>;
+}

@@ -3,8 +3,8 @@ import {
     Avatar,
     Badge,
     Box,
-    Button,
     Divider,
+    IconButton,
     MenuItem,
     styled,
     Typography,
@@ -50,9 +50,9 @@ const Profile: FC = () => {
             <CustomModal open={openModal} onClose={handleCloseModal} />
             <SideContentHeader>
                 <span>My Profile</span>
-                <Button onClick={handleClick}>
+                <IconButton sx={{ color: '#fff' }} onClick={handleClick}>
                     <MoreVertIcon />
-                </Button>
+                </IconButton>
                 <StyledMenu
                     anchorEl={anchorEl}
                     open={open}
