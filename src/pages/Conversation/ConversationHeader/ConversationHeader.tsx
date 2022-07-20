@@ -1,0 +1,194 @@
+import {
+    Archive,
+    Call,
+    DeleteSweepRounded,
+    FiberManualRecord,
+    MoreVertOutlined,
+    PersonOutlineOutlined,
+    Search,
+    VideoCallOutlined,
+    VolumeOff,
+} from '@mui/icons-material';
+import {
+    Avatar,
+    Box,
+    Drawer,
+    IconButton,
+    MenuItem,
+    styled,
+    TextField,
+    Typography,
+} from '@mui/material';
+import { FC, useState } from 'react';
+import StyledMenu from '../../../components/Menu/Menu';
+import CallingModal from '../../../components/Modal/CallingModal';
+import { imageSrc } from '../../../config/constants';
+
+const HeaderWrapper = styled('div')(({ theme }) => ({
+    height: '85px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottom: '1px solid #36404a',
+}));
+
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: theme.spacing(1, -1, 1, 0.5),
+}));
+
+type ConversationHeaderProps = {
+    onClickProfileButton: () => void;
+};
+
+const ConversationHeader: FC<ConversationHeaderProps> = ({
+    onClickProfileButton,
+}) => {
+    //search menu
+    const [anchorSearchMenuEl, setAnchorSearchMenuEl] =
+        useState<null | HTMLElement>(null);
+    const open = Boolean(anchorSearchMenuEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorSearchMenuEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorSearchMenuEl(null);
+    };
+
+    //action menu
+    const [anchorActionMenuEl, setAnchorActionMenuEl] =
+        useState<null | HTMLElement>(null);
+    const actionMenuOpen = Boolean(anchorActionMenuEl);
+    const handleActionButtonClick = (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+        setAnchorActionMenuEl(event.currentTarget);
+    };
+    const handleActionMenuClose = () => {
+        setAnchorActionMenuEl(null);
+    };
+
+    //modal
+    const [modalOpen, setModalOpen] = useState(false);
+    const handleClickCallButton = () => {
+        setModalOpen(true);
+    };
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
+
+    return (
+        <HeaderWrapper>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingLeft: 3,
+                    color: '#fff',
+                }}
+            >
+                <Avatar
+                    sx={{
+                        width: '35px',
+                        height: '35px',
+                    }}
+                    alt="small user photo"
+                    src={imageSrc}
+                />
+                <Typography pl="16px" pr="8px" sx={{ fontWeight: 600 }}>
+                    Doris Brown
+                </Typography>
+                <FiberManualRecord sx={{ fontSize: '15px' }} color="success" />
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingRight: 3,
+                }}
+            >
+                <IconButton
+                    onClick={handleClick}
+                    sx={{ color: '#fff', padding: 1.5 }}
+                >
+                    <Search />
+                </IconButton>
+
+                <IconButton
+                    onClick={handleClickCallButton}
+                    sx={{ color: '#fff', padding: 1.5 }}
+                >
+                    <Call />
+                </IconButton>
+                <IconButton
+                    onClick={handleClickCallButton}
+                    sx={{ color: '#fff', padding: 1.5 }}
+                >
+                    <VideoCallOutlined />
+                </IconButton>
+                <IconButton
+                    onClick={onClickProfileButton}
+                    sx={{ color: '#fff', padding: 1.5 }}
+                >
+                    <PersonOutlineOutlined />
+                </IconButton>
+                <IconButton
+                    onClick={handleActionButtonClick}
+                    sx={{ color: '#fff', padding: 1.5 }}
+                >
+                    <MoreVertOutlined />
+                </IconButton>
+            </Box>
+
+            {/* Search Menu */}
+            <StyledMenu
+                anchorEl={anchorSearchMenuEl}
+                open={open}
+                onClose={handleClose}
+            >
+                <Box sx={{ backgroundColor: '#303841', margin: '-4px 0' }}>
+                    <TextField
+                        InputProps={{
+                            disableUnderline: true,
+                        }}
+                        variant="standard"
+                        sx={{
+                            backgroundColor: '#36404a',
+                            borderRadius: 1,
+                            margin: '8px 8px',
+                            '& .MuiInputBase-input': {
+                                color: '#fff',
+                                height: '35px',
+                            },
+                        }}
+                    />
+                </Box>
+            </StyledMenu>
+
+            {/* action menu */}
+            <StyledMenu
+                anchorEl={anchorActionMenuEl}
+                open={actionMenuOpen}
+                onClose={handleActionMenuClose}
+            >
+                <StyledMenuItem onClick={handleClose} disableRipple>
+                    <Typography>Archive</Typography>
+                    <Archive />
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleClose} disableRipple>
+                    Muted
+                    <VolumeOff />
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleClose} disableRipple>
+                    Delete
+                    <DeleteSweepRounded />
+                </StyledMenuItem>
+            </StyledMenu>
+            <CallingModal open={modalOpen} onClose={handleCloseModal} />
+        </HeaderWrapper>
+    );
+};
+
+export default ConversationHeader;

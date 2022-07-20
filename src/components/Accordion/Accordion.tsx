@@ -8,9 +8,9 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import { information } from '../../../config/constants';
 import { Box } from '@mui/system';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { information } from '../../config/constants';
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />

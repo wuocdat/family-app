@@ -40,7 +40,11 @@ const Settings: FC = () => {
                 <span>Chats</span>
             </SideContentHeader>
             <UserProfile>
-                <BasicProfile name="Patricia Smith" src={imageSrc} />
+                <BasicProfile
+                    name="Patricia Smith"
+                    src={imageSrc}
+                    isCurrentUser
+                />
                 <Typography
                     sx={{
                         display: 'flex',

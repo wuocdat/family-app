@@ -11,13 +11,13 @@ import { FC, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import AccordionProfile from './Accordion/Accordion';
 import StyledMenu from '../../components/Menu/Menu';
 import { Archive, FileCopy, MoreHoriz } from '@mui/icons-material';
 import SideContentContainer from '../../components/Container/SideContentContainer';
 import SideContentHeader from '../../components/Header/SideContentHeader';
 import BasicProfile from '../../components/BasicProfile/BasicProfile';
 import { imageSrc } from '../../config/constants';
+import AccordionProfile from '../../components/Accordion/Accordion';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -71,7 +71,11 @@ const Profile: FC = () => {
                 </StyledMenu>
             </SideContentHeader>
             <UserProfile>
-                <BasicProfile name="Patricia Smith" src={imageSrc} />
+                <BasicProfile
+                    name="Patricia Smith"
+                    src={imageSrc}
+                    isCurrentUser
+                />
                 <Typography
                     variant="caption"
                     sx={{

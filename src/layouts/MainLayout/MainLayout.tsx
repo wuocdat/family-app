@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 import { FC } from 'react';
 import SideMenu from '../../components/SideMenu/SideMenu';
+import Conversation from '../../pages/Conversation';
 
 const Container = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 0, 0, 0),
@@ -18,7 +19,9 @@ const MainLayout: FC<{ children: JSX.Element }> = ({ children }) => {
         <Container>
             <SideMenu />
             {children}
-            <ChatContent>user chat</ChatContent>
+            <ChatContent>
+                <Conversation />
+            </ChatContent>
         </Container>
     );
 };

@@ -122,6 +122,8 @@ export const Users = [
 export const imageSrc =
     'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D';
 
+export const imageSrc2 =
+    'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/c994e25bec5485ac4bcf9a9ddb9eabbd~c5_100x100.jpeg?x-expires=1658491200&x-signature=cDIf4u7YxqnUas3N%2FaVU1ZyM%2FLA%3D';
 export const userItems: UserItemProps[] = [
     {
         fullName: 'Deanna Humphrey',
