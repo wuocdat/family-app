@@ -9,7 +9,7 @@ const SideContentHeader = styled('div')(({ theme }) => ({
     height: '52px',
     fontWeight: 500,
     padding: theme.spacing(1, 2, 3, 2),
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
 }));
 
 export default SideContentHeader;

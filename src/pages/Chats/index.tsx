@@ -48,7 +48,10 @@ const Chats: FC = () => {
                 })}
             </Box>
 
-            <Box color="white" sx={{ width: '100%', padding: '16px 16px 8px' }}>
+            <Box
+                color="text.primary"
+                sx={{ width: '100%', padding: '16px 16px 8px' }}
+            >
                 <Typography>Recent</Typography>
             </Box>
 

@@ -12,15 +12,14 @@ import {
 import {
     Avatar,
     Box,
-    Drawer,
     IconButton,
-    MenuItem,
     styled,
     TextField,
     Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
 import StyledMenu from '../../../components/Menu/Menu';
+import StyledMenuItem from '../../../components/MenuItem/MenuItem';
 import CallingModal from '../../../components/Modal/CallingModal';
 import { imageSrc } from '../../../config/constants';
 
@@ -29,14 +28,9 @@ const HeaderWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottom: '1px solid #36404a',
-}));
-
-const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: theme.spacing(1, -1, 1, 0.5),
+    // borderBottom: '1px solid #36404a',
+    borderBottom: '0.5px solid',
+    borderColor: theme.palette.divider,
 }));
 
 type ConversationHeaderProps = {
@@ -86,7 +80,6 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     paddingLeft: 3,
-                    color: '#fff',
                 }}
             >
                 <Avatar
@@ -97,7 +90,11 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     alt="small user photo"
                     src={imageSrc}
                 />
-                <Typography pl="16px" pr="8px" sx={{ fontWeight: 600 }}>
+                <Typography
+                    pl="16px"
+                    pr="8px"
+                    sx={{ fontWeight: 600, color: 'text.primary' }}
+                >
                     Doris Brown
                 </Typography>
                 <FiberManualRecord sx={{ fontSize: '15px' }} color="success" />
@@ -109,34 +106,31 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     paddingRight: 3,
                 }}
             >
-                <IconButton
-                    onClick={handleClick}
-                    sx={{ color: '#fff', padding: 1.5 }}
-                >
+                <IconButton onClick={handleClick} sx={{ padding: 1.5 }}>
                     <Search />
                 </IconButton>
 
                 <IconButton
                     onClick={handleClickCallButton}
-                    sx={{ color: '#fff', padding: 1.5 }}
+                    sx={{ padding: 1.5 }}
                 >
                     <Call />
                 </IconButton>
                 <IconButton
                     onClick={handleClickCallButton}
-                    sx={{ color: '#fff', padding: 1.5 }}
+                    sx={{ padding: 1.5 }}
                 >
                     <VideoCallOutlined />
                 </IconButton>
                 <IconButton
                     onClick={onClickProfileButton}
-                    sx={{ color: '#fff', padding: 1.5 }}
+                    sx={{ padding: 1.5 }}
                 >
                     <PersonOutlineOutlined />
                 </IconButton>
                 <IconButton
                     onClick={handleActionButtonClick}
-                    sx={{ color: '#fff', padding: 1.5 }}
+                    sx={{ padding: 1.5 }}
                 >
                     <MoreVertOutlined />
                 </IconButton>

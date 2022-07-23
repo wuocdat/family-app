@@ -11,7 +11,6 @@ const Container = styled('div')(({ theme }) => ({
 const ChatContent = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 0, 0, 0),
     flex: 1,
-    backgroundColor: '#ccc',
 }));
 
 const MainLayout: FC<{ children: JSX.Element }> = ({ children }) => {

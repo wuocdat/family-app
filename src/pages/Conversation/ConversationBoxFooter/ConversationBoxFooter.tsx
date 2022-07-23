@@ -12,6 +12,7 @@ const FooterWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTop: '1px solid #36404a',
+    borderColor: theme.palette.divider,
 }));
 const ConversationBoxFooter = () => {
     return (
@@ -24,26 +25,27 @@ const ConversationBoxFooter = () => {
                 variant="standard"
                 sx={{
                     flex: 1,
-                    backgroundColor: '#36404a',
+                    // backgroundColor: '#36404a',
+                    backgroundColor: 'background.paper',
                     borderRadius: 1,
                     height: '100%',
                     '& .MuiInputBase-root': {
                         height: '100%',
                         paddingLeft: '8px',
                     },
-                    '& .MuiInputBase-input': {
-                        color: '#fff',
-                    },
+                    // '& .MuiInputBase-input': {
+                    //     color: '#fff',
+                    // },
                 }}
             />
             <Box sx={{ padding: '0 16px' }}>
-                <IconButton sx={{ color: '#fff', padding: 1.5 }}>
+                <IconButton sx={{ padding: 1.5 }}>
                     <SentimentSatisfiedOutlined />
                 </IconButton>
-                <IconButton sx={{ color: '#fff', padding: 1.5 }}>
+                <IconButton sx={{ padding: 1.5 }}>
                     <AttachFile />
                 </IconButton>
-                <IconButton sx={{ color: '#fff', padding: 1.5 }}>
+                <IconButton color="primary" sx={{ padding: 1.5 }}>
                     <Send />
                 </IconButton>
             </Box>

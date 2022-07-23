@@ -6,9 +6,10 @@ const ItemWrapper = styled('div')(({ theme }) => ({
     alignItems: 'center',
     width: '100%',
     padding: '15px 16px',
-    color: '#fff',
+    color: theme.palette.text.primary,
     '&:hover': {
-        backgroundColor: '#36404a',
+        // backgroundColor: '#36404a',
+        backgroundColor: theme.palette.action.hover,
         borderRadius: theme.spacing(1),
         cursor: 'pointer',
     },
@@ -55,12 +56,14 @@ const UserItem = ({
                 )}
             </Badge>
             <Box sx={{ flex: 1, paddingLeft: 2 }}>
-                <Typography>{fullName}</Typography>
-                <Typography variant="body2" color="#abb4d2">
+                <Typography color="text.primary">{fullName}</Typography>
+                {/* <Typography variant="body2" color="#abb4d2"> */}
+                <Typography variant="body2" color="text.secondary">
                     {latestMessage}
                 </Typography>
             </Box>
-            <Typography variant="body2" color="#abb4d2">
+            {/* <Typography variant="body2" color="#abb4d2"> */}
+            <Typography variant="body2" color="text.secondary">
                 {time}
             </Typography>
         </ItemWrapper>

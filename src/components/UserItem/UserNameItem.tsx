@@ -4,17 +4,11 @@ import {
     Share,
     DeleteSweepRounded,
 } from '@mui/icons-material';
-import { Box, IconButton, MenuItem, styled, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 import { User } from '../../types';
 import StyledMenu from '../Menu/Menu';
-
-const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: theme.spacing(1, -1, 1, 0.5),
-}));
+import StyledMenuItem from '../MenuItem/MenuItem';
 
 const UserNameItem: FC<User> = (user) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -31,10 +25,9 @@ const UserNameItem: FC<User> = (user) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                color: '#fff',
                 padding: '8px 0 8px 16px',
                 '&:hover': {
-                    backgroundColor: '#36404a',
+                    backgroundColor: 'action.hover',
                     borderRadius: 1,
                     cursor: 'pointer',
                 },
@@ -43,13 +36,13 @@ const UserNameItem: FC<User> = (user) => {
             <Typography
                 sx={{
                     flex: 1,
+                    color: 'text.primary',
                 }}
             >
                 {user.name}
             </Typography>
             <IconButton
                 sx={{
-                    color: '#fff',
                     '&.MuiButtonBase-root': {
                         paddingRight: 0,
                     },

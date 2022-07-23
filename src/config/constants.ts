@@ -124,6 +124,10 @@ export const imageSrc =
 
 export const imageSrc2 =
     'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/c994e25bec5485ac4bcf9a9ddb9eabbd~c5_100x100.jpeg?x-expires=1658491200&x-signature=cDIf4u7YxqnUas3N%2FaVU1ZyM%2FLA%3D';
+
+export const imageSrc3 =
+    'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/6072c859b366433e92362031c48d7567~c5_100x100.jpeg?x-expires=1658530800&x-signature=y89gq7gWYVEL0lmqyzp7W4XoAPY%3D';
+
 export const userItems: UserItemProps[] = [
     {
         fullName: 'Deanna Humphrey',

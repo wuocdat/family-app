@@ -11,14 +11,15 @@ const ContactsSearch = () => {
                     display: 'flex',
                     alignItems: 'center',
                     width: '100%',
-                    backgroundColor: '#36404a',
+                    // backgroundColor: '#36404a',
+                    backgroundColor: 'background.default',
                 }}
             >
-                <IconButton sx={{ p: '10px', color: '#fff' }} aria-label="menu">
+                <IconButton sx={{ p: '10px' }} aria-label="menu">
                     <SearchIcon />
                 </IconButton>
                 <InputBase
-                    sx={{ ml: 1, flex: 1, color: '#fff' }}
+                    sx={{ ml: 1, flex: 1 }}
                     placeholder="Search users..."
                     inputProps={{ 'aria-label': 'search google maps' }}
                 />

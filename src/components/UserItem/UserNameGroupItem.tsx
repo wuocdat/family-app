@@ -6,7 +6,9 @@ import UserNameItem from './UserNameItem';
 const UserGroupNameItem: FC<GroupType> = ({ type, data }) => {
     return (
         <Box sx={{ paddingTop: 4 }}>
-            <Typography color="primary">{capitalize(type)}</Typography>
+            <Typography color="primary" fontWeight="600">
+                {capitalize(type)}
+            </Typography>
             <Box>
                 {data.map((user, index) => {
                     return (

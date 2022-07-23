@@ -21,7 +21,7 @@ const UserProfile = styled('div')(({ theme }) => ({
     alignItems: 'center',
     width: '100%',
     padding: theme.spacing(2, 2, 3, 2),
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
 }));
 
 const Settings: FC = () => {
@@ -49,7 +49,7 @@ const Settings: FC = () => {
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        color: alpha('#fff', 0.5),
+                        color: 'text.secondary',
                         fontSize: '15px',
                         paddingTop: 1,
                         cursor: 'pointer',
@@ -72,13 +72,7 @@ const Settings: FC = () => {
                     </MenuItem>
                 </StyledMenu>
             </UserProfile>
-            <Divider
-                color=""
-                flexItem={true}
-                sx={{
-                    backgroundColor: alpha('#fff', 0.1),
-                }}
-            />
+            <Divider flexItem={true} />
             <Box sx={{ width: '100%', padding: 3, overflowY: 'auto' }}>
                 <SettingAccordion />
             </Box>

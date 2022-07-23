@@ -15,13 +15,16 @@ import BasicProfile from '../../components/BasicProfile/BasicProfile';
 import { imageSrc2 } from '../../config/constants';
 import { FiberManualRecord } from '@mui/icons-material';
 import AccordionProfile from '../../components/Accordion/Accordion';
+import LeftMessageItem from '../../components/MessageItem/LeftMessageItem';
+import RightMessageItem from '../../components/MessageItem/RightMessageItem';
 
 const ConversationWrapper = styled('div')(({ theme }) => ({
     width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#262e35',
+    // backgroundColor: '#262e35',
+    backgroundColor: theme.palette.background.default,
 }));
 
 const Conversation = () => {
@@ -38,7 +41,10 @@ const Conversation = () => {
     return (
         <ConversationWrapper>
             <ConversationHeader onClickProfileButton={handleDrawerOpen} />
-            <Box sx={{ flex: 1 }}>Content</Box>
+            <Box sx={{ flex: 1 }}>
+                <LeftMessageItem />
+                <RightMessageItem />
+            </Box>
             <ConversationBoxFooter />
 
             {/* Drawer */}
@@ -48,7 +54,8 @@ const Conversation = () => {
                     height="100%"
                     sx={{
                         position: 'relative',
-                        backgroundColor: '#262e35',
+                        // backgroundColor: '#262e35',
+                        backgroundColor: 'background.default',
                         paddingTop: 10,
                         display: 'flex',
                         flexDirection: 'column',
@@ -61,7 +68,6 @@ const Conversation = () => {
                             position: 'absolute',
                             top: 2,
                             right: 2,
-                            color: '#fff',
                         }}
                     >
                         <CloseIcon />
@@ -76,7 +82,7 @@ const Conversation = () => {
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            color: alpha('#fff', 0.5),
+                            color: 'text.secondary',
                         }}
                     >
                         <FiberManualRecord
@@ -85,18 +91,12 @@ const Conversation = () => {
                         />
                         Active
                     </Typography>
-                    <Divider
-                        color=""
-                        flexItem={true}
-                        sx={{
-                            backgroundColor: alpha('#fff', 0.1),
-                        }}
-                    />
+                    <Divider flexItem={true} sx={{ color: 'divider', mt: 2 }} />
                     <Box sx={{ padding: 3, overflowY: 'auto' }}>
                         <Typography
                             variant="body2"
                             sx={{
-                                color: alpha('#fff', 0.5),
+                                color: 'text.secondary',
                                 paddingBottom: '24px',
                             }}
                         >

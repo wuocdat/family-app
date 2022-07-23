@@ -25,7 +25,7 @@ const UserProfile = styled('div')(({ theme }) => ({
     alignItems: 'center',
     width: '100%',
     padding: theme.spacing(2, 2, 3, 2),
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
 }));
 
 const Profile: FC = () => {
@@ -43,7 +43,7 @@ const Profile: FC = () => {
         <SideContentContainer>
             <SideContentHeader>
                 <span>My Profile</span>
-                <IconButton sx={{ color: '#fff' }} onClick={handleClick}>
+                <IconButton onClick={handleClick}>
                     <MoreVertIcon />
                 </IconButton>
                 <StyledMenu
@@ -81,7 +81,7 @@ const Profile: FC = () => {
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        color: alpha('#fff', 0.5),
+                        color: 'text.secondary',
                     }}
                 >
                     <FiberManualRecordIcon
@@ -95,14 +95,14 @@ const Profile: FC = () => {
                 color=""
                 flexItem={true}
                 sx={{
-                    backgroundColor: alpha('#fff', 0.1),
+                    backgroundColor: 'divider',
                 }}
             />
             <Box sx={{ padding: 3, overflowY: 'auto' }}>
                 <Typography
                     variant="body2"
                     sx={{
-                        color: alpha('#fff', 0.5),
+                        color: 'text.secondary',
                         paddingBottom: '24px',
                     }}
                 >

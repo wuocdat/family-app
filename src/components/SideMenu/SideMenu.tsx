@@ -2,22 +2,27 @@ import {
     alpha,
     Button,
     capitalize,
+    IconButton,
     styled,
+    ToggleButton,
+    ToggleButtonGroup,
     Tooltip,
     tooltipClasses,
     TooltipProps,
+    useTheme,
 } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import CommentRoundedIcon from '@mui/icons-material/CommentRounded';
 import ContactMailRoundedIcon from '@mui/icons-material/ContactMailRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { routes } from '../../config/routes';
 import { iconConst } from '../../config/constants';
+import { ColorModeContext } from '../../App';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 
 const Container = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -28,15 +33,8 @@ const Container = styled('div')(({ theme }) => ({
     height: '100vh',
     padding: theme.spacing(2, 0.5, 2, 0.5),
     boxSizing: 'border-box',
-    backgroundColor: '#36404a',
-}));
-
-const OptionWrapper = styled('div')(({ theme }) => ({
-    // margin: theme.spacing(0.5, 0.5, 0.5, 0.5),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // backgroundColor: '#36404a',
+    backgroundColor: theme.palette.background.default,
 }));
 
 const SettingWrapper = styled('div')(({ theme }) => ({
@@ -55,12 +53,17 @@ const StyledLink = styled(Link)(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    color: theme.palette.primary.dark,
-    // backgroundColor: alpha('#fff', 0.05),
-    '&.active': {
-        backgroundColor: alpha('#fff', 0.05),
-        borderRadius: theme.spacing(1),
-    },
+    color: theme.palette.primary.main,
+}));
+
+const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
+    margin: theme.spacing(1, 0),
+    // color: '#fff',
+    color: theme.palette.text.primary,
+    border: 'none',
+    width: '56px',
+    height: '56px',
+    borderRadius: '8px !important',
 }));
 
 const BootstrapTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -85,71 +88,121 @@ const BootstrapTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const SideMenu: FC = () => {
-    const [currentPoint, setCurrentPoint] = useState('profile');
+    const navigate = useNavigate();
+    // const [currentPoint, setCurrentPoint] = useState('profile');
+    const [alignment, setAlignment] = useState('profile');
+
+    const handleChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newAlignment: string,
+    ) => {
+        setAlignment(newAlignment);
+    };
+
+    //theme
+    const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
+
     return (
         <Container>
             <Button>
                 <WhatsAppIcon sx={{ fontSize: '2rem' }} />
             </Button>
-            <OptionWrapper>
-                <BootstrapTooltip title={capitalize(iconConst.profile)}>
-                    <StyledLink
-                        className={
-                            currentPoint === iconConst.profile ? 'active' : ''
-                        }
-                        onClick={() => {
-                            setCurrentPoint(iconConst.profile);
-                        }}
-                        to={routes.profile}
-                    >
+            <ToggleButtonGroup
+                color="primary"
+                value={alignment}
+                exclusive
+                onChange={handleChange}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <StyledToggleButton
+                    value="profile"
+                    onClick={() => {
+                        navigate(routes.profile);
+                    }}
+                    sx={{
+                        color: 'text.secondary',
+                    }}
+                >
+                    <BootstrapTooltip title={capitalize(iconConst.profile)}>
                         <PersonOutlinedIcon sx={{ fontSize: '2rem' }} />
-                    </StyledLink>
-                </BootstrapTooltip>
-                <BootstrapTooltip title={capitalize(iconConst.chats)}>
-                    <StyledLink
-                        className={
-                            currentPoint === iconConst.chats ? 'active' : ''
-                        }
-                        onClick={() => {
-                            setCurrentPoint(iconConst.chats);
-                        }}
-                        to={routes.chats}
-                    >
+                    </BootstrapTooltip>
+                </StyledToggleButton>
+
+                <StyledToggleButton
+                    value="chats"
+                    onClick={() => {
+                        navigate(routes.chats);
+                    }}
+                    sx={{
+                        color: 'text.secondary',
+                    }}
+                >
+                    <BootstrapTooltip title={capitalize(iconConst.chats)}>
                         <CommentRoundedIcon />
-                    </StyledLink>
-                </BootstrapTooltip>
-                <BootstrapTooltip title={capitalize(iconConst.contacts)}>
-                    <StyledLink
-                        className={
-                            currentPoint === iconConst.contacts ? 'active' : ''
-                        }
-                        onClick={() => {
-                            setCurrentPoint(iconConst.contacts);
-                        }}
-                        to={routes.contacts}
-                    >
+                    </BootstrapTooltip>
+                </StyledToggleButton>
+
+                <StyledToggleButton
+                    value="contacts"
+                    onClick={() => {
+                        navigate(routes.contacts);
+                    }}
+                    sx={{
+                        color: 'text.secondary',
+                    }}
+                >
+                    <BootstrapTooltip title={capitalize(iconConst.contacts)}>
                         <ContactMailRoundedIcon />
-                    </StyledLink>
-                </BootstrapTooltip>
-                <BootstrapTooltip title={capitalize(iconConst.settings)}>
-                    <StyledLink
-                        className={
-                            currentPoint === iconConst.settings ? 'active' : ''
-                        }
-                        onClick={() => {
-                            setCurrentPoint(iconConst.settings);
-                        }}
-                        to={routes.settings}
-                    >
+                    </BootstrapTooltip>
+                </StyledToggleButton>
+
+                <StyledToggleButton
+                    value="settings"
+                    onClick={() => {
+                        navigate(routes.settings);
+                    }}
+                    sx={{
+                        color: 'text.secondary',
+                    }}
+                >
+                    <BootstrapTooltip title={capitalize(iconConst.settings)}>
                         <SettingsRoundedIcon />
-                    </StyledLink>
-                </BootstrapTooltip>
-            </OptionWrapper>
+                    </BootstrapTooltip>
+                </StyledToggleButton>
+            </ToggleButtonGroup>
             <SettingWrapper>
-                <BootstrapTooltip title="Light Mode">
-                    <StyledLink to="/chats">
-                        <LightModeRoundedIcon />
-                    </StyledLink>
+                <BootstrapTooltip
+                    title={
+                        theme.palette.mode === 'light'
+                            ? 'Light Mode'
+                            : 'Dark Mode'
+                    }
+                >
+                    <IconButton
+                        onClick={colorMode.toggleColorMode}
+                        sx={{
+                            padding: theme.spacing(1, 0, 1, 0),
+                            width: '56px',
+                            height: '56px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            color: theme.palette.primary.main,
+                        }}
+                    >
+                        {theme.palette.mode === 'dark' ? (
+                            <Brightness7 />
+                        ) : (
+                            <Brightness4 />
+                        )}
+                    </IconButton>
                 </BootstrapTooltip>
                 <StyledLink to="/chats">
                     <AccountCircleRoundedIcon />

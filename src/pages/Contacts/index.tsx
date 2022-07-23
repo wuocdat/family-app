@@ -40,7 +40,7 @@ const Contacts: FC = () => {
         <SideContentContainer>
             <SideContentHeader>
                 <span>Contacts</span>
-                <IconButton sx={{ color: '#fff' }} onClick={handleClick}>
+                <IconButton onClick={handleClick}>
                     <PersonAddAltOutlinedIcon />
                 </IconButton>
                 <ContactModal open={openModal} onClose={handleCloseModal} />

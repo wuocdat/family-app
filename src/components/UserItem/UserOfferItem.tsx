@@ -45,7 +45,8 @@ const UserOfferItem = ({ name, src, active }: OfferItemProps) => {
                 </Badge>
                 <Box
                     sx={{
-                        backgroundColor: '#36404a',
+                        // backgroundColor: '#36404a',
+                        backgroundColor: 'background.default',
                         height: '100%',
                         borderRadius: 2.5,
                         display: 'flex',
@@ -56,7 +57,7 @@ const UserOfferItem = ({ name, src, active }: OfferItemProps) => {
                     <Typography
                         sx={{
                             paddingBottom: 1,
-                            color: '#fff',
+                            color: 'text.primary',
                             fontSize: '14px',
                         }}
                     >

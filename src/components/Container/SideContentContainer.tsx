@@ -8,7 +8,8 @@ const SideContentContainer = styled('div')(({ theme }) => ({
     height: '100vh',
     padding: theme.spacing(2, 1, 2, 1),
     boxSizing: 'border-box',
-    backgroundColor: '#303841',
+    // backgroundColor: '#303841',
+    backgroundColor: theme.palette.background.paper,
 }));
 
 export default SideContentContainer;

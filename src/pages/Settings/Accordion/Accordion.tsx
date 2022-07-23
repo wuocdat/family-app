@@ -33,8 +33,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
             color: '#fff',
             '& + .MuiSwitch-track': {
                 opacity: 1,
-                backgroundColor:
-                    theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
+                backgroundColor: theme.palette.primary.main,
             },
         },
     },
@@ -66,7 +65,8 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
-    border: '1px solid #36404a',
+    // border: '1px solid #36404a',
+    border: '1px solid text.primary',
     '&:not(:last-child)': {
         marginBottom: '16px',
     },
@@ -84,17 +84,18 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
     <MuiAccordionSummary
         expandIcon={
             <ArrowForwardIosSharpIcon
-                sx={{ fontSize: '0.9rem', color: '#fff' }}
+                sx={{ fontSize: '0.9rem', color: 'grey.900' }}
             />
         }
         {...props}
     />
 ))(({ theme }) => ({
-    backgroundColor: '#36404a',
+    // backgroundColor: '#36404a',
+    backgroundColor: theme.palette.primary.main,
     '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
         transform: 'rotate(90deg)',
     },
-    color: '#fff',
+    color: theme.palette.grey[900],
     // '& .MuiAccordionSummary-content': {
     //     marginLeft: theme.spacing(1),
     // },
@@ -103,8 +104,8 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     padding: theme.spacing(2.5),
     // border: '1px solid #36404a',
-    backgroundColor: '#262e35',
-    color: '#fff',
+    // backgroundColor: '#262e35',
+    backgroundColor: theme.palette.background.default,
 }));
 
 interface ProfileItemProps {
@@ -117,11 +118,11 @@ const ProfileItem = ({ name, content }: ProfileItemProps) => {
         <Box sx={{ padding: '8px 0' }}>
             <Typography
                 variant="body1"
-                sx={{ color: '#9aa1b9', paddingBottom: '2px' }}
+                sx={{ color: 'text.primary', paddingBottom: '2px' }}
             >
                 {name}
             </Typography>
-            <Typography variant="body2" sx={{ color: '#fff' }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {content}
             </Typography>
         </Box>
