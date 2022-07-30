@@ -6,11 +6,15 @@ import {
 } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
 import { FC, useState } from 'react';
-import { User } from '../../types';
+import { UserInfo } from '../../types';
 import StyledMenu from '../Menu/Menu';
 import StyledMenuItem from '../MenuItem/MenuItem';
 
-const UserNameItem: FC<User> = (user) => {
+interface UserNameItemProps {
+    user: UserInfo;
+}
+
+const UserNameItem: FC<UserNameItemProps> = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,7 +43,7 @@ const UserNameItem: FC<User> = (user) => {
                     color: 'text.primary',
                 }}
             >
-                {user.name}
+                {user.firstName.concat(' ', user.lastName)}
             </Typography>
             <IconButton
                 sx={{

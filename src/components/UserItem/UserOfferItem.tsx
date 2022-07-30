@@ -1,12 +1,11 @@
-import { Avatar, Badge, Box, Typography } from '@mui/material';
+import { Avatar, Badge, Box, capitalize, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { UserInfo } from '../../types';
 
 interface OfferItemProps {
-    name: string;
-    src: string;
-    active?: boolean;
+    data: UserInfo;
 }
-const UserOfferItem = ({ name, src, active }: OfferItemProps) => {
+const UserOfferItem = ({ data }: OfferItemProps) => {
     return (
         <Box
             sx={{
@@ -19,7 +18,7 @@ const UserOfferItem = ({ name, src, active }: OfferItemProps) => {
         >
             <Link to="/contacts/001">
                 <Badge
-                    color={active ? 'success' : 'warning'}
+                    color={!!data.online ? 'success' : 'warning'}
                     overlap="circular"
                     badgeContent=" "
                     variant="dot"
@@ -34,14 +33,26 @@ const UserOfferItem = ({ name, src, active }: OfferItemProps) => {
                         transform: 'translateX(-50%)',
                     }}
                 >
-                    <Avatar
-                        sx={{
-                            width: '35px',
-                            height: '35px',
-                        }}
-                        alt="small user photo"
-                        src={src}
-                    />
+                    {!!data.src ? (
+                        <Avatar
+                            sx={{
+                                width: '35px',
+                                height: '35px',
+                            }}
+                            alt="small user photo"
+                            src={data.src}
+                        />
+                    ) : (
+                        <Avatar
+                            sx={{
+                                width: '35px',
+                                height: '35px',
+                            }}
+                            alt="small user photo"
+                        >
+                            {capitalize(data.firstName.slice(0, 1))}
+                        </Avatar>
+                    )}
                 </Badge>
                 <Box
                     sx={{
@@ -61,7 +72,7 @@ const UserOfferItem = ({ name, src, active }: OfferItemProps) => {
                             fontSize: '14px',
                         }}
                     >
-                        {name}
+                        {data.lastName}
                     </Typography>
                 </Box>
             </Link>

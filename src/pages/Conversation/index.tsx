@@ -1,5 +1,4 @@
 import {
-    alpha,
     Box,
     Divider,
     Drawer,
@@ -12,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ConversationBoxFooter from './ConversationBoxFooter/ConversationBoxFooter';
 import ConversationHeader from './ConversationHeader/ConversationHeader';
 import BasicProfile from '../../components/BasicProfile/BasicProfile';
-import { imageSrc2 } from '../../config/constants';
+import { imageSrc2, userInformation } from '../../config/constants';
 import { FiberManualRecord } from '@mui/icons-material';
 import AccordionProfile from '../../components/Accordion/Accordion';
 import LeftMessageItem from '../../components/MessageItem/LeftMessageItem';
@@ -104,7 +103,7 @@ const Conversation = () => {
                             resulting language is more simple and regular than
                             that of the individual.
                         </Typography>
-                        <AccordionProfile />
+                        <AccordionProfile data={userInformation} />
                     </Box>
                 </Box>
             </Drawer>

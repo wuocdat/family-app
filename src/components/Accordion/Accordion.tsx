@@ -6,11 +6,11 @@ import MuiAccordionSummary, {
 } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { Box } from '@mui/system';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { information } from '../../config/constants';
+import { UserInfo } from '../../types';
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -72,7 +72,11 @@ const ProfileItem = ({ name, content }: ProfileItemProps) => {
     );
 };
 
-const AccordionProfile = () => {
+interface AccordionProfileProps {
+    data: UserInfo;
+}
+
+const AccordionProfile: FC<AccordionProfileProps> = ({ data }) => {
     const [expanded, setExpanded] = useState<string | false>(false);
 
     // set accordion to open or close
@@ -98,13 +102,13 @@ const AccordionProfile = () => {
                     <Typography variant="body2">About</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <ProfileItem name="Name" content={information.username} />
-                    <ProfileItem name="Email" content={information.email} />
-                    <ProfileItem name="Age" content={information.age} />
                     <ProfileItem
-                        name="Location"
-                        content={information.location}
+                        name="Name"
+                        content={`${data.firstName} ${data.lastName}`}
                     />
+                    <ProfileItem name="Email" content={data.email} />
+                    <ProfileItem name="Age" content={data.age} />
+                    <ProfileItem name="Location" content={data.address} />
                 </AccordionDetails>
             </Accordion>
             <Accordion

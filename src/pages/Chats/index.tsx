@@ -1,12 +1,28 @@
 import { Box, Typography } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import SideContentContainer from '../../components/Container/SideContentContainer';
 import SideContentHeader from '../../components/Header/SideContentHeader';
 import SearchUserInput from '../../components/SearchInput/SearchUserInput';
 import UserItem from '../../components/UserItem/UserItem';
 import UserOfferItem from '../../components/UserItem/UserOfferItem';
-import { offerUsers, userItems } from '../../config/constants';
+import { requestAPI } from '../../services/ApiServices';
+import { Conversation, UserInfo } from '../../types';
 import ChatModal from './Modal/ChatModal';
+
+const defaultUser: UserInfo[] = [
+    {
+        id: '',
+        firstName: '',
+        lastName: '',
+        address: '',
+        age: '',
+        email: '',
+        description: '',
+        numberPhone: '',
+        username: '',
+        createdAt: '',
+    },
+];
 
 const Chats: FC = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -16,6 +32,35 @@ const Chats: FC = () => {
     const handleModalOpen = () => {
         setOpenModal(true);
     };
+
+    const [users, setUsers] = useState<UserInfo[]>(defaultUser);
+    const [conversations, setConversations] = useState<Conversation[]>();
+
+    const fetchUsers = async () => {
+        try {
+            const { data } = await requestAPI.get<UserInfo[]>('/users');
+            data && setUsers(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const fetchConversations = async () => {
+        try {
+            const { data } = await requestAPI.get<Conversation[]>(
+                '/conversations',
+            );
+            data && setConversations(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUsers();
+        fetchConversations();
+    }, []);
+
     return (
         <SideContentContainer>
             {/* header */}
@@ -36,15 +81,8 @@ const Chats: FC = () => {
                     justifyContent: 'space-between',
                 }}
             >
-                {offerUsers.map((user, index) => {
-                    return (
-                        <UserOfferItem
-                            key={index}
-                            name={user.shortName}
-                            src={user.src}
-                            active={user.active}
-                        />
-                    );
+                {users.slice(0, 4).map((user, index) => {
+                    return <UserOfferItem key={index} data={user} />;
                 })}
             </Box>
 
@@ -57,19 +95,12 @@ const Chats: FC = () => {
 
             {/* all user */}
             <Box sx={{ width: '100%', padding: '0 8px', overflow: 'auto' }}>
-                {userItems.map((user, index) => {
-                    const { fullName, latestMessage, active, time, src } = user;
-                    return (
-                        <UserItem
-                            key={index}
-                            fullName={fullName}
-                            src={src}
-                            active={active}
-                            time={time}
-                            latestMessage={latestMessage || 'No pain no gain'}
-                        />
-                    );
-                })}
+                {conversations &&
+                    conversations.map((conversation, index) => {
+                        return (
+                            <UserItem key={index} conversation={conversation} />
+                        );
+                    })}
             </Box>
         </SideContentContainer>
     );

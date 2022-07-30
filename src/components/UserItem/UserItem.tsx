@@ -1,5 +1,8 @@
 import { Avatar, Badge, Box, styled, Typography } from '@mui/material';
-import { UserItemProps } from '../../types';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Conversation } from '../../types';
+import { collapseText } from '../../utils';
 
 const ItemWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -15,17 +18,23 @@ const ItemWrapper = styled('div')(({ theme }) => ({
     },
 }));
 
-const UserItem = ({
-    fullName,
-    src,
-    latestMessage = 'No pain no gain',
-    active,
-    time,
-}: UserItemProps) => {
+interface UserItemProps {
+    conversation: Conversation;
+}
+
+const UserItem: FC<UserItemProps> = ({ conversation }) => {
+    const navigate = useNavigate();
+    const { online, firstName, lastName, src } = conversation.friend;
+    const { lastContent, lastTime } = conversation.lastMessage;
+    const fullName = firstName.concat(' ', lastName);
     return (
-        <ItemWrapper>
+        <ItemWrapper
+            onClick={() => {
+                navigate(`/chats/${conversation.id}`);
+            }}
+        >
             <Badge
-                color={active ? 'success' : 'warning'}
+                color={online ? 'success' : 'warning'}
                 overlap="circular"
                 badgeContent=" "
                 variant="dot"
@@ -59,12 +68,14 @@ const UserItem = ({
                 <Typography color="text.primary">{fullName}</Typography>
                 {/* <Typography variant="body2" color="#abb4d2"> */}
                 <Typography variant="body2" color="text.secondary">
-                    {latestMessage}
+                    {lastContent.length > 45
+                        ? collapseText(lastContent, 50)
+                        : lastContent}
                 </Typography>
             </Box>
             {/* <Typography variant="body2" color="#abb4d2"> */}
             <Typography variant="body2" color="text.secondary">
-                {time}
+                {lastTime}
             </Typography>
         </ItemWrapper>
     );

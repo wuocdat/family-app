@@ -1,6 +1,6 @@
 export const routes = {
     profile: '/',
-    chats: '/chats',
+    chats: '/chats/:_id',
     contacts: '/contacts',
     settings: '/settings',
     signIn: '/login',

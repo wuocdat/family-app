@@ -1,9 +1,24 @@
-import { UserItemProps } from './../types/index';
+import { UserInfo } from './../types/index';
 export const information = {
     username: 'Patricia Smith',
     email: 'abc@123.com',
     age: 24,
     location: 'California, USA',
+};
+
+export const userInformation: UserInfo = {
+    id: 'd3948ad9-4bb6-41c4-a250-85d1375b020c',
+    email: 'Rau_Alena@Fritsch.tv',
+    firstName: 'Maybell',
+    lastName: 'Paucek',
+    age: '1996',
+    description:
+        'Delectus quos praesentium voluptatibus ullam ipsum. Incidunt expedita deleniti adipisci. Dolore beatae sint et tempora quia iure earum recusandae.',
+    online: '2',
+    createdAt: '374662711',
+    numberPhone: '868-807-1484',
+    username: 'Gust.Ferry',
+    address: '500 Kunze Expressway',
 };
 
 export const iconConst = {
@@ -127,99 +142,3 @@ export const imageSrc2 =
 
 export const imageSrc3 =
     'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/6072c859b366433e92362031c48d7567~c5_100x100.jpeg?x-expires=1658530800&x-signature=y89gq7gWYVEL0lmqyzp7W4XoAPY%3D';
-
-export const userItems: UserItemProps[] = [
-    {
-        fullName: 'Deanna Humphrey',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Davon Riddle',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Shyann Tucker',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: false,
-        time: '05 min',
-    },
-    {
-        fullName: 'Heidy Sims',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Eliezer Terrell',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Curtis Whitney',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Clara Ayers',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: false,
-        time: '05 min',
-    },
-    {
-        fullName: 'Payton Schaefer',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Patrick Morton',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Kaylin Acevedo',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Brenda Stone',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: false,
-        time: '05 min',
-    },
-    {
-        fullName: 'Anton',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Oscar Vang',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Tom',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-    {
-        fullName: 'Jay',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: false,
-        time: '05 min',
-    },
-    {
-        fullName: 'Anton',
-        src: 'https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657890000&x-signature=WzNCLIEPuvS31OTCZBE87TgEe%2FQ%3D',
-        active: true,
-        time: '05 min',
-    },
-];

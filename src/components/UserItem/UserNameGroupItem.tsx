@@ -11,13 +11,7 @@ const UserGroupNameItem: FC<GroupType> = ({ type, data }) => {
             </Typography>
             <Box>
                 {data.map((user, index) => {
-                    return (
-                        <UserNameItem
-                            key={index}
-                            id={user.id}
-                            name={user.name}
-                        />
-                    );
+                    return <UserNameItem key={index} user={user} />;
                 })}
             </Box>
         </Box>

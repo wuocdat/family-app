@@ -1,5 +1,4 @@
 import {
-    alpha,
     Button,
     capitalize,
     IconButton,

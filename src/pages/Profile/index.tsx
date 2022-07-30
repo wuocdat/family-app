@@ -1,5 +1,4 @@
 import {
-    alpha,
     Box,
     Divider,
     IconButton,
@@ -7,7 +6,7 @@ import {
     styled,
     Typography,
 } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
@@ -18,6 +17,8 @@ import SideContentHeader from '../../components/Header/SideContentHeader';
 import BasicProfile from '../../components/BasicProfile/BasicProfile';
 import { imageSrc } from '../../config/constants';
 import AccordionProfile from '../../components/Accordion/Accordion';
+import { UserInfo } from '../../types';
+import { requestAPI } from '../../services/ApiServices';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -28,7 +29,21 @@ const UserProfile = styled('div')(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
+const defaultUser: UserInfo = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    age: '',
+    email: '',
+    description: '',
+    numberPhone: '',
+    username: '',
+    createdAt: '',
+};
+
 const Profile: FC = () => {
+    const [user, setUser] = useState<UserInfo>(defaultUser);
     //menu
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -38,6 +53,23 @@ const Profile: FC = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const fetchUserInfo = async () => {
+        try {
+            const { data } = await requestAPI.get<UserInfo>(
+                '/users/536309908',
+                {},
+            );
+
+            data && setUser(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserInfo();
+    }, []);
 
     return (
         <SideContentContainer>
@@ -72,7 +104,7 @@ const Profile: FC = () => {
             </SideContentHeader>
             <UserProfile>
                 <BasicProfile
-                    name="Patricia Smith"
+                    name={`${user?.firstName} ${user?.lastName}`}
                     src={imageSrc}
                     isCurrentUser
                 />
@@ -106,11 +138,12 @@ const Profile: FC = () => {
                         paddingBottom: '24px',
                     }}
                 >
-                    If several languages coalesce, the grammar of the resulting
+                    {user?.description ||
+                        `If several languages coalesce, the grammar of the resulting
                     language is more simple and regular than that of the
-                    individual.
+                    individual.`}
                 </Typography>
-                <AccordionProfile />
+                <AccordionProfile data={user} />
             </Box>
         </SideContentContainer>
     );
