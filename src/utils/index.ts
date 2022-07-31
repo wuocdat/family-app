@@ -24,3 +24,7 @@ export const collapseText = (text: string, total: number): string => {
     }
     return shortenedContent.join(' ').concat('...');
 };
+
+export const getFullName = (firstName: string, lastName: string) => {
+    return `${firstName} ${lastName}`;
+};

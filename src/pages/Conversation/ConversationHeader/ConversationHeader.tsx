@@ -22,6 +22,7 @@ import StyledMenu from '../../../components/Menu/Menu';
 import StyledMenuItem from '../../../components/MenuItem/MenuItem';
 import CallingModal from '../../../components/Modal/CallingModal';
 import { imageSrc } from '../../../config/constants';
+import { UserInfo } from '../../../types';
 
 const HeaderWrapper = styled('div')(({ theme }) => ({
     height: '85px',
@@ -35,10 +36,12 @@ const HeaderWrapper = styled('div')(({ theme }) => ({
 
 type ConversationHeaderProps = {
     onClickProfileButton: () => void;
+    user: UserInfo | undefined;
 };
 
 const ConversationHeader: FC<ConversationHeaderProps> = ({
     onClickProfileButton,
+    user,
 }) => {
     //search menu
     const [anchorSearchMenuEl, setAnchorSearchMenuEl] =
@@ -95,9 +98,12 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     pr="8px"
                     sx={{ fontWeight: 600, color: 'text.primary' }}
                 >
-                    Doris Brown
+                    {user?.firstName.concat(' ', user.lastName)}
                 </Typography>
-                <FiberManualRecord sx={{ fontSize: '15px' }} color="success" />
+                <FiberManualRecord
+                    sx={{ fontSize: '15px' }}
+                    color={!!user?.online ? 'success' : 'warning'}
+                />
             </Box>
             <Box
                 sx={{

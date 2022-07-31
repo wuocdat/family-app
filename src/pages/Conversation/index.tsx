@@ -6,7 +6,7 @@ import {
     styled,
     Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import ConversationBoxFooter from './ConversationBoxFooter/ConversationBoxFooter';
 import ConversationHeader from './ConversationHeader/ConversationHeader';
@@ -16,17 +16,20 @@ import { FiberManualRecord } from '@mui/icons-material';
 import AccordionProfile from '../../components/Accordion/Accordion';
 import LeftMessageItem from '../../components/MessageItem/LeftMessageItem';
 import RightMessageItem from '../../components/MessageItem/RightMessageItem';
+import { Conversation as ConversationType, UserInfo } from '../../types';
+import { requestAPI } from '../../services/ApiServices';
+import { useParams } from 'react-router-dom';
 
 const ConversationWrapper = styled('div')(({ theme }) => ({
     width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    // backgroundColor: '#262e35',
     backgroundColor: theme.palette.background.default,
 }));
 
 const Conversation = () => {
+    let { _id } = useParams();
     //drawer
     const [drawerOpen, setOpenDrawer] = useState(false);
 
@@ -37,9 +40,30 @@ const Conversation = () => {
     const handleDrawerClose = () => {
         setOpenDrawer(false);
     };
+
+    const [friend, setFriend] = useState<UserInfo>();
+
+    const fetchUser = async (id: string) => {
+        try {
+            const { data } = await requestAPI.get<ConversationType>(
+                `/conversations/${id}`,
+            );
+            data && setFriend(data.friend);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        _id && fetchUser(_id);
+    }, [_id]);
+
     return (
         <ConversationWrapper>
-            <ConversationHeader onClickProfileButton={handleDrawerOpen} />
+            <ConversationHeader
+                user={friend}
+                onClickProfileButton={handleDrawerOpen}
+            />
             <Box sx={{ flex: 1 }}>
                 <LeftMessageItem />
                 <RightMessageItem />
@@ -53,7 +77,6 @@ const Conversation = () => {
                     height="100%"
                     sx={{
                         position: 'relative',
-                        // backgroundColor: '#262e35',
                         backgroundColor: 'background.default',
                         paddingTop: 10,
                         display: 'flex',
@@ -72,7 +95,7 @@ const Conversation = () => {
                         <CloseIcon />
                     </IconButton>
                     <BasicProfile
-                        name="Thanh Thuy"
+                        name={`${friend?.firstName} ${friend?.lastName}` || ''}
                         src={imageSrc2}
                         isCurrentUser={false}
                     />
@@ -88,7 +111,7 @@ const Conversation = () => {
                             sx={{ fontSize: '13px' }}
                             color="success"
                         />
-                        Active
+                        {friend?.online ? 'Active' : 'Offline'}
                     </Typography>
                     <Divider flexItem={true} sx={{ color: 'divider', mt: 2 }} />
                     <Box sx={{ padding: 3, overflowY: 'auto' }}>
@@ -99,9 +122,10 @@ const Conversation = () => {
                                 paddingBottom: '24px',
                             }}
                         >
-                            If several languages coalesce, the grammar of the
+                            {friend?.description ||
+                                `If several languages coalesce, the grammar of the
                             resulting language is more simple and regular than
-                            that of the individual.
+                            that of the individual.`}
                         </Typography>
                         <AccordionProfile data={userInformation} />
                     </Box>

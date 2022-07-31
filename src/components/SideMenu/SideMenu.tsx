@@ -10,15 +10,14 @@ import {
     TooltipProps,
     useTheme,
 } from '@mui/material';
-import { FC, useContext, useState } from 'react';
+import { FC, useContext } from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import CommentRoundedIcon from '@mui/icons-material/CommentRounded';
 import ContactMailRoundedIcon from '@mui/icons-material/ContactMailRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import { Link, useNavigate } from 'react-router-dom';
-import { routes } from '../../config/routes';
+import { Link } from 'react-router-dom';
 import { iconConst } from '../../config/constants';
 import { ColorModeContext } from '../../App';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
@@ -86,18 +85,15 @@ const BootstrapTooltip = styled(({ className, ...props }: TooltipProps) => (
     },
 }));
 
-const SideMenu: FC = () => {
-    const navigate = useNavigate();
-    // const [currentPoint, setCurrentPoint] = useState('profile');
-    const [alignment, setAlignment] = useState('profile');
-
-    const handleChange = (
+interface SideMenuProps {
+    handleChange: (
         event: React.MouseEvent<HTMLElement>,
         newAlignment: string,
-    ) => {
-        setAlignment(newAlignment);
-    };
+    ) => void;
+    alignment: string;
+}
 
+const SideMenu: FC<SideMenuProps> = ({ alignment, handleChange }) => {
     //theme
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
@@ -111,7 +107,12 @@ const SideMenu: FC = () => {
                 color="primary"
                 value={alignment}
                 exclusive
-                onChange={handleChange}
+                onChange={(
+                    event: React.MouseEvent<HTMLElement>,
+                    newAlignment: string,
+                ) => {
+                    handleChange(event, newAlignment);
+                }}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -121,9 +122,6 @@ const SideMenu: FC = () => {
             >
                 <StyledToggleButton
                     value="profile"
-                    onClick={() => {
-                        navigate(routes.profile);
-                    }}
                     sx={{
                         color: 'text.secondary',
                     }}
@@ -135,9 +133,6 @@ const SideMenu: FC = () => {
 
                 <StyledToggleButton
                     value="chats"
-                    onClick={() => {
-                        navigate(routes.chats);
-                    }}
                     sx={{
                         color: 'text.secondary',
                     }}
@@ -149,9 +144,6 @@ const SideMenu: FC = () => {
 
                 <StyledToggleButton
                     value="contacts"
-                    onClick={() => {
-                        navigate(routes.contacts);
-                    }}
                     sx={{
                         color: 'text.secondary',
                     }}
@@ -163,9 +155,6 @@ const SideMenu: FC = () => {
 
                 <StyledToggleButton
                     value="settings"
-                    onClick={() => {
-                        navigate(routes.settings);
-                    }}
                     sx={{
                         color: 'text.secondary',
                     }}
@@ -203,7 +192,7 @@ const SideMenu: FC = () => {
                         )}
                     </IconButton>
                 </BootstrapTooltip>
-                <StyledLink to="/chats">
+                <StyledLink to="/messages/">
                     <AccountCircleRoundedIcon />
                 </StyledLink>
             </SettingWrapper>

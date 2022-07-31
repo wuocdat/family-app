@@ -1,7 +1,8 @@
 import { ThemeProvider } from '@mui/material';
 import { createContext, useMemo, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { publicRoutes } from './routes/Routes';
+import MainLayout from './layouts/MainLayout/MainLayout';
+import SignIn from './pages/SignIn/SignIn';
 import { darkTheme, lightTheme } from './styles/Theme';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
@@ -27,21 +28,8 @@ function App() {
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <Routes>
-                        {publicRoutes.map((item, index) => {
-                            const CurrentLayout = item.layout;
-                            const Page = item.component;
-                            return (
-                                <Route
-                                    key={index}
-                                    path={item.path}
-                                    element={
-                                        <CurrentLayout>
-                                            <Page />
-                                        </CurrentLayout>
-                                    }
-                                ></Route>
-                            );
-                        })}
+                        <Route path="/login" element={<SignIn />} />
+                        <Route path="/messages/*" element={<MainLayout />} />
                     </Routes>
                 </BrowserRouter>
             </ThemeProvider>
