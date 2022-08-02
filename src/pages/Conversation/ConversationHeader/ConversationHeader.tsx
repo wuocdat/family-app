@@ -1,5 +1,6 @@
 import {
     Archive,
+    ArrowBack,
     Call,
     DeleteSweepRounded,
     FiberManualRecord,
@@ -18,6 +19,8 @@ import {
     Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ShowOnlyMobile } from '../../../components/Media/mobile';
 import StyledMenu from '../../../components/Menu/Menu';
 import StyledMenuItem from '../../../components/MenuItem/MenuItem';
 import CallingModal from '../../../components/Modal/CallingModal';
@@ -76,6 +79,8 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
         setModalOpen(false);
     };
 
+    let navigate = useNavigate();
+
     return (
         <HeaderWrapper>
             <Box
@@ -85,6 +90,16 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     paddingLeft: 3,
                 }}
             >
+                <ShowOnlyMobile>
+                    <IconButton
+                        sx={{ marginRight: 2 }}
+                        onClick={() => {
+                            navigate('/messages');
+                        }}
+                    >
+                        <ArrowBack />
+                    </IconButton>
+                </ShowOnlyMobile>
                 <Avatar
                     sx={{
                         width: '35px',

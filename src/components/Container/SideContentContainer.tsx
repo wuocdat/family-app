@@ -4,12 +4,19 @@ const SideContentContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '380px',
-    height: '100vh',
     padding: theme.spacing(2, 1, 2, 1),
     boxSizing: 'border-box',
-    // backgroundColor: '#303841',
     backgroundColor: theme.palette.background.paper,
+    '@media (max-width: 999px)': {
+        flex: 1,
+        width: '100%',
+    },
+    '@media (min-width: 1000px)': {
+        height: '100vh',
+        minWidth: '380px',
+        maxWidth: '380px',
+    },
+    overflow: 'auto',
 }));
 
 export default SideContentContainer;
