@@ -30,7 +30,7 @@ const UserItem: FC<UserItemProps> = ({ conversation }) => {
     return (
         <ItemWrapper
             onClick={() => {
-                navigate(`/messages/${conversation.id}`);
+                navigate(`/${conversation.id}`);
             }}
         >
             <Badge

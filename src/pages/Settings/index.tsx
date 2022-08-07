@@ -1,11 +1,4 @@
-import {
-    alpha,
-    Box,
-    Divider,
-    MenuItem,
-    styled,
-    Typography,
-} from '@mui/material';
+import { Box, Divider, MenuItem, styled, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 import BasicProfile from '../../components/BasicProfile/BasicProfile';
 import SideContentContainer from '../../components/Container/SideContentContainer';

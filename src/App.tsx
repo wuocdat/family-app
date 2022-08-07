@@ -1,13 +1,17 @@
 import { ThemeProvider } from '@mui/material';
-import { createContext, useMemo, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createContext, useEffect, useMemo, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import SignIn from './pages/SignIn/SignIn';
+import SignUp from './pages/SignUp/SignUp';
+import TokenService from './services/auth/token.service';
 import { darkTheme, lightTheme } from './styles/Theme';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function App() {
+    const navigate = useNavigate();
+    const currentUser = TokenService.getUser();
     const [mode, setMode] = useState<'light' | 'dark'>('light');
     const colorMode = useMemo(
         () => ({
@@ -23,15 +27,17 @@ function App() {
         () => (mode === 'light' ? lightTheme : darkTheme),
         [mode],
     );
+    useEffect(() => {
+        if (!currentUser) navigate('/login', { replace: true });
+    }, []);
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/login" element={<SignIn />} />
-                        <Route path="/messages/*" element={<MainLayout />} />
-                    </Routes>
-                </BrowserRouter>
+                <Routes>
+                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/*" element={<MainLayout />} />
+                </Routes>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );

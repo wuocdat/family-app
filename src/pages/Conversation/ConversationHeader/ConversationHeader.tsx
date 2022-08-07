@@ -94,7 +94,7 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     <IconButton
                         sx={{ marginRight: 2 }}
                         onClick={() => {
-                            navigate('/messages');
+                            navigate('/');
                         }}
                     >
                         <ArrowBack />

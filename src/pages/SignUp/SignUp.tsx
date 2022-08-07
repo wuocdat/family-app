@@ -12,10 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AuthService from '../../services/auth/auth.service';
-import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../../services/auth/auth.service';
+import { AxiosError } from 'axios';
 import TokenService from '../../services/auth/token.service';
 
 function Copyright(props: any) {
@@ -38,11 +38,11 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignUp() {
     const navigate = useNavigate();
-    const currentUser = TokenService.getUser();
-
     const { enqueueSnackbar } = useSnackbar();
+
+    const currentUser = TokenService.getUser();
 
     React.useEffect(() => {
         if (currentUser) navigate('/', { replace: true });
@@ -52,14 +52,14 @@ export default function SignIn() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const username = String(data.get('name'));
+        const email = String(data.get('email'));
+        const name = String(data.get('name'));
         const password = String(data.get('password'));
 
-        if (username && password) {
+        if (email && password && name) {
             try {
-                const response = await AuthService.login(username, password);
-                console.log(response);
-                response && navigate('/', { replace: true });
+                await AuthService.register(name, email, password);
+                navigate('/login', { replace: true });
             } catch (error) {
                 if (
                     error instanceof AxiosError &&
@@ -72,7 +72,10 @@ export default function SignIn() {
                     });
                 else console.log(error);
             }
-        }
+        } else
+            enqueueSnackbar('Fields must be filled in completely!', {
+                variant: 'warning',
+            });
     };
 
     return (
@@ -91,63 +94,79 @@ export default function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Sign up
                     </Typography>
                     <Box
                         component="form"
-                        onSubmit={handleSubmit}
                         noValidate
-                        sx={{ mt: 1 }}
+                        onSubmit={handleSubmit}
+                        sx={{ mt: 3 }}
                     >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="name"
-                            label="User Name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox value="remember" color="primary" />
-                            }
-                            label="Remember me"
-                        />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="Name"
+                                    name="name"
+                                    autoComplete="family-name"
+                                    inputProps={{ style: { height: '52px' } }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    inputProps={{ style: { height: '52px' } }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="new-password"
+                                    inputProps={{ style: { height: '52px' } }}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            value="allowExtraEmails"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                />
+                            </Grid>
+                        </Grid>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
+                        <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    Already have an account? Sign in
                                 </Link>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Copyright sx={{ mt: 5 }} />
             </Container>
         </ThemeProvider>
     );

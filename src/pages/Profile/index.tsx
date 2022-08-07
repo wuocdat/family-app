@@ -19,6 +19,7 @@ import { imageSrc } from '../../config/constants';
 import AccordionProfile from '../../components/Accordion/Accordion';
 import { UserInfo } from '../../types';
 import { requestAPI } from '../../services/ApiServices';
+import UserService from '../../services/users/user.service';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -69,6 +70,7 @@ const Profile: FC = () => {
 
     useEffect(() => {
         fetchUserInfo();
+        UserService.getUserBoard();
     }, []);
 
     return (
