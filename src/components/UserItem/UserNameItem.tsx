@@ -43,7 +43,7 @@ const UserNameItem: FC<UserNameItemProps> = ({ user }) => {
                     color: 'text.primary',
                 }}
             >
-                {user.firstName.concat(' ', user.lastName)}
+                {user.username}
             </Typography>
             <IconButton
                 sx={{

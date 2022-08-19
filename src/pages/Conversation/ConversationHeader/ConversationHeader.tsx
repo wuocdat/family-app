@@ -113,7 +113,7 @@ const ConversationHeader: FC<ConversationHeaderProps> = ({
                     pr="8px"
                     sx={{ fontWeight: 600, color: 'text.primary' }}
                 >
-                    {user?.firstName.concat(' ', user.lastName)}
+                    {user?.username}
                 </Typography>
                 <FiberManualRecord
                     sx={{ fontSize: '15px' }}

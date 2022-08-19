@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import AuthService from '../../services/auth/auth.service';
 import { AxiosError } from 'axios';
 import TokenService from '../../services/auth/token.service';
@@ -44,9 +44,9 @@ export default function SignUp() {
 
     const currentUser = TokenService.getUser();
 
-    React.useEffect(() => {
-        if (currentUser) navigate('/', { replace: true });
-    }, []);
+    if (currentUser) {
+        return <Navigate to="/" />;
+    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

@@ -15,11 +15,10 @@ import { Archive, FileCopy, MoreHoriz } from '@mui/icons-material';
 import SideContentContainer from '../../components/Container/SideContentContainer';
 import SideContentHeader from '../../components/Header/SideContentHeader';
 import BasicProfile from '../../components/BasicProfile/BasicProfile';
-import { imageSrc } from '../../config/constants';
 import AccordionProfile from '../../components/Accordion/Accordion';
 import { UserInfo } from '../../types';
-import { requestAPI } from '../../services/ApiServices';
 import UserService from '../../services/users/user.service';
+import TokenService from '../../services/auth/token.service';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -32,18 +31,12 @@ const UserProfile = styled('div')(({ theme }) => ({
 
 const defaultUser: UserInfo = {
     id: '',
-    firstName: '',
-    lastName: '',
-    address: '',
-    age: '',
-    email: '',
-    description: '',
-    numberPhone: '',
     username: '',
-    createdAt: '',
+    email: '',
 };
 
 const Profile: FC = () => {
+    const currentUser: UserInfo = TokenService.getUser();
     const [user, setUser] = useState<UserInfo>(defaultUser);
     //menu
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -57,10 +50,7 @@ const Profile: FC = () => {
 
     const fetchUserInfo = async () => {
         try {
-            const { data } = await requestAPI.get<UserInfo>(
-                '/users/536309908',
-                {},
-            );
+            const { data } = await UserService.getProfile(currentUser.id);
 
             data && setUser(data);
         } catch (error) {
@@ -70,7 +60,6 @@ const Profile: FC = () => {
 
     useEffect(() => {
         fetchUserInfo();
-        UserService.getUserBoard();
     }, []);
 
     return (
@@ -106,8 +95,8 @@ const Profile: FC = () => {
             </SideContentHeader>
             <UserProfile>
                 <BasicProfile
-                    name={`${user?.firstName} ${user?.lastName}`}
-                    src={imageSrc}
+                    name={`${user?.username}`}
+                    src={!!user.src ? user.src : undefined}
                     isCurrentUser
                 />
                 <Typography

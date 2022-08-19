@@ -24,9 +24,8 @@ interface UserItemProps {
 
 const UserItem: FC<UserItemProps> = ({ conversation }) => {
     const navigate = useNavigate();
-    const { online, firstName, lastName, src } = conversation.friend;
+    const { online, username, src } = conversation.friend;
     const { lastContent, lastTime } = conversation.lastMessage;
-    const fullName = firstName.concat(' ', lastName);
     return (
         <ItemWrapper
             onClick={() => {
@@ -60,12 +59,12 @@ const UserItem: FC<UserItemProps> = ({ conversation }) => {
                         }}
                         alt="user avatar"
                     >
-                        {fullName.slice(0, 1)}
+                        {username.slice(0, 1)}
                     </Avatar>
                 )}
             </Badge>
             <Box sx={{ flex: 1, paddingLeft: 2 }}>
-                <Typography color="text.primary">{fullName}</Typography>
+                <Typography color="text.primary">{username}</Typography>
                 {/* <Typography variant="body2" color="#abb4d2"> */}
                 <Typography variant="body2" color="text.secondary">
                     {lastContent.length > 45

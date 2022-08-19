@@ -9,15 +9,13 @@ export const information = {
 export const userInformation: UserInfo = {
     id: 'd3948ad9-4bb6-41c4-a250-85d1375b020c',
     email: 'Rau_Alena@Fritsch.tv',
-    firstName: 'Maybell',
-    lastName: 'Paucek',
+    username: 'Maybell Paucek',
     age: '1996',
     description:
         'Delectus quos praesentium voluptatibus ullam ipsum. Incidunt expedita deleniti adipisci. Dolore beatae sint et tempora quia iure earum recusandae.',
     online: '2',
     createdAt: '374662711',
     numberPhone: '868-807-1484',
-    username: 'Gust.Ferry',
     address: '500 Kunze Expressway',
 };
 

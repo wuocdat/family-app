@@ -34,7 +34,7 @@ const Contacts: FC = () => {
         if (users) {
             const groups = users.reduce(
                 (prev: GroupType[], current: UserInfo) => {
-                    const firstLetter = current.firstName.slice(0, 1);
+                    const firstLetter = current.username.slice(0, 1);
                     let isExisted = false;
                     const result = prev.map((item) => {
                         if (item.type === firstLetter) {

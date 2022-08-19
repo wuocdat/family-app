@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AuthService from '../../services/auth/auth.service';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
 import TokenService from '../../services/auth/token.service';
@@ -44,9 +44,9 @@ export default function SignIn() {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    React.useEffect(() => {
-        if (currentUser) navigate('/', { replace: true });
-    }, []);
+    if (currentUser) {
+        return <Navigate to="/" />;
+    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -135,14 +135,12 @@ export default function SignIn() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+                                <NavLink to="/login">Forgot password?</NavLink>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <NavLink to="/register">
                                     {"Don't have an account? Sign Up"}
-                                </Link>
+                                </NavLink>
                             </Grid>
                         </Grid>
                     </Box>

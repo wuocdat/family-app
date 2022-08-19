@@ -5,16 +5,14 @@ export type FetchData<T> = {
 
 export interface UserInfo {
     id: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    age: string;
+    username: string;
     email: string;
+    address?: string;
+    age?: string;
     description?: string;
     online?: string;
-    createdAt: string;
+    createdAt?: string;
     numberPhone?: string;
-    username: string;
     src?: string;
 }
 

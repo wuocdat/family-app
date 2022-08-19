@@ -12,15 +12,8 @@ import ChatModal from './Modal/ChatModal';
 const defaultUser: UserInfo[] = [
     {
         id: '',
-        firstName: '',
-        lastName: '',
-        address: '',
-        age: '',
         email: '',
-        description: '',
-        numberPhone: '',
         username: '',
-        createdAt: '',
     },
 ];
 

@@ -95,7 +95,7 @@ const Conversation = () => {
                         <CloseIcon />
                     </IconButton>
                     <BasicProfile
-                        name={`${friend?.firstName} ${friend?.lastName}` || ''}
+                        name={`${friend?.username}` || ''}
                         src={imageSrc2}
                         isCurrentUser={false}
                     />

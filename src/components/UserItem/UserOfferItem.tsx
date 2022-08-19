@@ -50,7 +50,7 @@ const UserOfferItem = ({ data }: OfferItemProps) => {
                             }}
                             alt="small user photo"
                         >
-                            {capitalize(data.firstName.slice(0, 1))}
+                            {capitalize(data.username.slice(0, 1))}
                         </Avatar>
                     )}
                 </Badge>
@@ -72,7 +72,7 @@ const UserOfferItem = ({ data }: OfferItemProps) => {
                             fontSize: '14px',
                         }}
                     >
-                        {data.lastName}
+                        {data.username}
                     </Typography>
                 </Box>
             </Link>

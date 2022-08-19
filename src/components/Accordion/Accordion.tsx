@@ -102,13 +102,10 @@ const AccordionProfile: FC<AccordionProfileProps> = ({ data }) => {
                     <Typography variant="body2">About</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <ProfileItem
-                        name="Name"
-                        content={`${data.firstName} ${data.lastName}`}
-                    />
+                    <ProfileItem name="Name" content={`${data.username}`} />
                     <ProfileItem name="Email" content={data.email} />
-                    <ProfileItem name="Age" content={data.age} />
-                    <ProfileItem name="Location" content={data.address} />
+                    <ProfileItem name="Age" content={data.age || ''} />
+                    <ProfileItem name="Location" content={data.address || ''} />
                 </AccordionDetails>
             </Accordion>
             <Accordion
