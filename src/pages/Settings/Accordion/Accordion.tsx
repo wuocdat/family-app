@@ -6,13 +6,13 @@ import MuiAccordionSummary, {
 } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import { FC, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Box } from '@mui/system';
 import { Button, Divider, DividerProps, Switch } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { ExpandMoreOutlined } from '@mui/icons-material';
-import { UserInfo } from '../../../types';
 import EditProfileModal from '../Modal/EditProfileModal';
+import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 28,
@@ -114,10 +114,6 @@ interface ProfileItemProps {
     content: string | number;
 }
 
-interface SettingAccordionProps {
-    user: UserInfo;
-}
-
 const ProfileItem = ({ name, content }: ProfileItemProps) => {
     return (
         <Box sx={{ padding: '8px 0' }}>
@@ -134,7 +130,9 @@ const ProfileItem = ({ name, content }: ProfileItemProps) => {
     );
 };
 
-const SettingAccordion: FC<SettingAccordionProps> = ({ user }) => {
+const SettingAccordion = () => {
+    const { profile } = useContext(CurrentUserContext);
+
     const [expanded, setExpanded] = useState<string | false>(false);
     const [openModal, setOpenModal] = useState(false);
     // set accordion to open or close
@@ -151,7 +149,6 @@ const SettingAccordion: FC<SettingAccordionProps> = ({ user }) => {
                 handleClose={() => {
                     setOpenModal(false);
                 }}
-                user={user}
             />
             <Accordion
                 expanded={expanded === 'panel1'}
@@ -167,16 +164,16 @@ const SettingAccordion: FC<SettingAccordionProps> = ({ user }) => {
                     <Box sx={{ position: 'relative' }}>
                         <ProfileItem
                             name="Name"
-                            content={user?.username || 'username'}
+                            content={profile?.username || 'username'}
                         />
                         <ProfileItem
                             name="Email"
-                            content={user?.email || 'abc@123'}
+                            content={profile?.email || 'abc@123'}
                         />
-                        <ProfileItem name="Age" content={user?.age || ''} />
+                        <ProfileItem name="Age" content={profile?.age || ''} />
                         <ProfileItem
                             name="Location"
-                            content={user?.address || ''}
+                            content={profile?.address || ''}
                         />
                         <Button
                             sx={{

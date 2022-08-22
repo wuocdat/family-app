@@ -6,11 +6,11 @@ import MuiAccordionSummary, {
 } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import { FC, useState } from 'react';
+import { useContext, useState } from 'react';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import { Box } from '@mui/system';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { UserInfo } from '../../types';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -72,11 +72,9 @@ const ProfileItem = ({ name, content }: ProfileItemProps) => {
     );
 };
 
-interface AccordionProfileProps {
-    data: UserInfo;
-}
+const AccordionProfile = () => {
+    const { profile: data } = useContext(CurrentUserContext);
 
-const AccordionProfile: FC<AccordionProfileProps> = ({ data }) => {
     const [expanded, setExpanded] = useState<string | false>(false);
 
     // set accordion to open or close

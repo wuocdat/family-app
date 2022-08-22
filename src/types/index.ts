@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type FetchData<T> = {
     data?: T;
     type?: string;
@@ -40,3 +42,8 @@ export interface LastMessage {
     sender: string;
     lastTime: string;
 }
+
+export type CurrentUserContextType = {
+    profile: UserInfo;
+    setProfile: Dispatch<SetStateAction<UserInfo>>;
+};

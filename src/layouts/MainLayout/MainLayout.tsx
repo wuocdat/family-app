@@ -5,6 +5,7 @@ import { HideOnlyMobile, ShowOnlyMobile } from '../../components/Media/mobile';
 import NotFound from '../../components/NotFound/NotFound';
 import BottomMenu from '../../components/SideMenu/BottomMenu';
 import SideMenu from '../../components/SideMenu/SideMenu';
+import CurrentUserContextProvider from '../../contexts/CurrentUserContext';
 import Chats from '../../pages/Chats';
 import Contacts from '../../pages/Contacts';
 import Conversation from '../../pages/Conversation';
@@ -39,51 +40,56 @@ const MainLayout = () => {
         setAlignment(newAlignment);
     };
     return (
-        <>
-            <HideOnlyMobile>
-                <Container>
-                    <SideMenu
-                        alignment={alignment}
-                        handleChange={handleChange}
-                    />
-                    {alignment === 'profile' && <Profile />}
-                    {alignment === 'chats' && <Chats />}
-                    {alignment === 'contacts' && <Contacts />}
-                    {alignment === 'settings' && <Settings />}
-                    <ChatContent>
-                        <Routes>
-                            <Route path="/:_id" element={<Conversation />} />
-                            {/* <Route
-                            path="/user/:_useId"
-                            element={<div>User Profile</div>}
-                        /> */}
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                        {/* <Conversation /> */}
-                    </ChatContent>
-                </Container>
-            </HideOnlyMobile>
-            <ShowOnlyMobile>
-                <Routes>
-                    <Route path="/:_id" element={<Conversation />} />
-                    <Route
-                        path="/"
-                        element={
-                            <MobileContainer>
-                                {alignment === 'profile' && <Profile />}
-                                {alignment === 'chats' && <Chats />}
-                                {alignment === 'contacts' && <Contacts />}
-                                {alignment === 'settings' && <Settings />}
-                                <BottomMenu
-                                    alignment={alignment}
-                                    handleChange={handleChange}
+        <CurrentUserContextProvider>
+            <>
+                <HideOnlyMobile>
+                    <Container>
+                        <SideMenu
+                            alignment={alignment}
+                            handleChange={handleChange}
+                        />
+                        {alignment === 'profile' && <Profile />}
+                        {alignment === 'chats' && <Chats />}
+                        {alignment === 'contacts' && <Contacts />}
+                        {alignment === 'settings' && <Settings />}
+                        <ChatContent>
+                            <Routes>
+                                <Route
+                                    path="/:_id"
+                                    element={<Conversation />}
                                 />
-                            </MobileContainer>
-                        }
-                    />
-                </Routes>
-            </ShowOnlyMobile>
-        </>
+                                {/* <Route
+                                path="/user/:_useId"
+                                element={<div>User Profile</div>}
+                            /> */}
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                            {/* <Conversation /> */}
+                        </ChatContent>
+                    </Container>
+                </HideOnlyMobile>
+                <ShowOnlyMobile>
+                    <Routes>
+                        <Route path="/:_id" element={<Conversation />} />
+                        <Route
+                            path="/"
+                            element={
+                                <MobileContainer>
+                                    {alignment === 'profile' && <Profile />}
+                                    {alignment === 'chats' && <Chats />}
+                                    {alignment === 'contacts' && <Contacts />}
+                                    {alignment === 'settings' && <Settings />}
+                                    <BottomMenu
+                                        alignment={alignment}
+                                        handleChange={handleChange}
+                                    />
+                                </MobileContainer>
+                            }
+                        />
+                    </Routes>
+                </ShowOnlyMobile>
+            </>
+        </CurrentUserContextProvider>
     );
 };
 

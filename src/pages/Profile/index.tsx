@@ -6,7 +6,7 @@ import {
     styled,
     Typography,
 } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
@@ -16,9 +16,7 @@ import SideContentContainer from '../../components/Container/SideContentContaine
 import SideContentHeader from '../../components/Header/SideContentHeader';
 import BasicProfile from '../../components/BasicProfile/BasicProfile';
 import AccordionProfile from '../../components/Accordion/Accordion';
-import { UserInfo } from '../../types';
-import UserService from '../../services/users/user.service';
-import TokenService from '../../services/auth/token.service';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const UserProfile = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -29,15 +27,9 @@ const UserProfile = styled('div')(({ theme }) => ({
     color: theme.palette.text.primary,
 }));
 
-const defaultUser: UserInfo = {
-    id: '',
-    username: '',
-    email: '',
-};
-
 const Profile: FC = () => {
-    const currentUser = TokenService.getUser();
-    const [user, setUser] = useState<UserInfo>(defaultUser);
+    const { profile } = useContext(CurrentUserContext);
+
     //menu
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -47,20 +39,6 @@ const Profile: FC = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-    const fetchUserInfo = async () => {
-        try {
-            const { data } = await UserService.getProfile(currentUser.id);
-
-            data && setUser(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        fetchUserInfo();
-    }, []);
 
     return (
         <SideContentContainer>
@@ -95,8 +73,8 @@ const Profile: FC = () => {
             </SideContentHeader>
             <UserProfile>
                 <BasicProfile
-                    name={`${user?.username}`}
-                    src={!!user.src ? user.src : undefined}
+                    name={`${profile?.username}`}
+                    src={!!profile.src ? profile.src : undefined}
                     isCurrentUser
                 />
                 <Typography
@@ -129,12 +107,12 @@ const Profile: FC = () => {
                         paddingBottom: '24px',
                     }}
                 >
-                    {user?.description ||
+                    {profile?.description ||
                         `If several languages coalesce, the grammar of the resulting
                     language is more simple and regular than that of the
                     individual.`}
                 </Typography>
-                <AccordionProfile data={user} />
+                <AccordionProfile />
             </Box>
         </SideContentContainer>
     );

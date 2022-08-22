@@ -2,11 +2,11 @@ import { Box, Button, Modal } from '@mui/material';
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import * as yup from 'yup';
 import MB16TextField from '../../../components/CommonTextField/MB16TextField';
+import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
 import UserService from '../../../services/users/user.service';
-import { UserInfo } from '../../../types/index';
 
 const modalBoxStyle = {
     position: 'absolute',
@@ -37,14 +37,11 @@ const validationSchema = yup.object({
 interface EditProfileModalProps {
     open: boolean;
     handleClose: () => void;
-    user: UserInfo;
 }
 
-const EditProfileModal: FC<EditProfileModalProps> = ({
-    open,
-    handleClose,
-    user,
-}) => {
+const EditProfileModal: FC<EditProfileModalProps> = ({ open, handleClose }) => {
+    const { profile, setProfile } = useContext(CurrentUserContext);
+
     const { enqueueSnackbar } = useSnackbar();
     const [isUpdating, setStatus] = useState(false);
     const {
@@ -56,7 +53,7 @@ const EditProfileModal: FC<EditProfileModalProps> = ({
         age,
         description,
         phoneNumber,
-    } = user;
+    } = profile;
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -74,13 +71,14 @@ const EditProfileModal: FC<EditProfileModalProps> = ({
         },
     });
 
-    const updateProfile = async (data: any) => {
+    const updateProfile = async (reqData: any) => {
         try {
             setStatus(true);
-            await UserService.updateProfile(id, data);
+            const { data } = await UserService.updateProfile(id, reqData);
             enqueueSnackbar('update profile successfully!', {
                 variant: 'success',
             });
+            data && setProfile(data);
         } catch (error) {
             if (error instanceof AxiosError) {
                 if (
