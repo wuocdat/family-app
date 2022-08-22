@@ -8,7 +8,7 @@ import ContactsSearch from '../../components/SearchInput/ContactsSearch';
 import UserGroupNameItem from '../../components/UserItem/UserNameGroupItem';
 import { GroupType, UserInfo } from '../../types';
 import ContactModal from './Modal/ContactModal';
-import { requestAPI } from '../../services/ApiServices';
+import UserService from '../../services/users/user.service';
 
 const Contacts: FC = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -17,7 +17,7 @@ const Contacts: FC = () => {
 
     const fetchUsers = async () => {
         try {
-            const { data } = await requestAPI.get<UserInfo[]>('/users');
+            const { data } = await UserService.getAllUsers();
             if (data) {
                 setUsers(data);
             }
@@ -52,8 +52,6 @@ const Contacts: FC = () => {
             groups.sort((a, b) => a.type.localeCompare(b.type));
             setUserGroups(groups);
         }
-
-        // sort group array by alphabetically
     }, [users]);
 
     const handleClick = () => {

@@ -3,17 +3,25 @@ export type FetchData<T> = {
     type?: string;
 };
 
+export interface RoleType {
+    _id: string;
+    name: string;
+}
+
 export interface UserInfo {
     id: string;
     username: string;
+    firstName?: string;
+    lastName?: string;
     email: string;
     address?: string;
     age?: string;
     description?: string;
     online?: string;
     createdAt?: string;
-    numberPhone?: string;
+    phoneNumber?: string;
     src?: string;
+    roles?: RoleType[];
 }
 
 export interface GroupType {

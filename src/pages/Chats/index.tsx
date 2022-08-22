@@ -6,6 +6,7 @@ import SearchUserInput from '../../components/SearchInput/SearchUserInput';
 import UserItem from '../../components/UserItem/UserItem';
 import UserOfferItem from '../../components/UserItem/UserOfferItem';
 import { requestAPI } from '../../services/ApiServices';
+import UserService from '../../services/users/user.service';
 import { Conversation, UserInfo } from '../../types';
 import ChatModal from './Modal/ChatModal';
 
@@ -31,8 +32,9 @@ const Chats: FC = () => {
 
     const fetchUsers = async () => {
         try {
-            const { data } = await requestAPI.get<UserInfo[]>('/users');
+            const { data } = await UserService.getAllUsers();
             data && setUsers(data);
+            console.log('data', data);
         } catch (error) {
             console.log(error);
         }

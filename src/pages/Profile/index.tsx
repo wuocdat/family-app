@@ -36,7 +36,7 @@ const defaultUser: UserInfo = {
 };
 
 const Profile: FC = () => {
-    const currentUser: UserInfo = TokenService.getUser();
+    const currentUser = TokenService.getUser();
     const [user, setUser] = useState<UserInfo>(defaultUser);
     //menu
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

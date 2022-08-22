@@ -17,10 +17,11 @@ import CommentRoundedIcon from '@mui/icons-material/CommentRounded';
 import ContactMailRoundedIcon from '@mui/icons-material/ContactMailRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { iconConst } from '../../config/constants';
 import { ColorModeContext } from '../../App';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
+import AuthService from '../../services/auth/auth.service';
 
 const Container = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -43,7 +44,18 @@ const SettingWrapper = styled('div')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-const StyledLink = styled(Link)(({ theme }) => ({
+// const StyledLink = styled(Link)(({ theme }) => ({
+//     padding: theme.spacing(1, 0, 1, 0),
+//     width: '56px',
+//     height: '56px',
+//     cursor: 'pointer',
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     color: theme.palette.primary.main,
+// }));
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
     padding: theme.spacing(1, 0, 1, 0),
     width: '56px',
     height: '56px',
@@ -97,6 +109,9 @@ const SideMenu: FC<SideMenuProps> = ({ alignment, handleChange }) => {
     //theme
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
+
+    //navigation
+    const navigate = useNavigate();
 
     return (
         <Container>
@@ -192,9 +207,14 @@ const SideMenu: FC<SideMenuProps> = ({ alignment, handleChange }) => {
                         )}
                     </IconButton>
                 </BootstrapTooltip>
-                <StyledLink to="/messages/">
+                <StyledIconButton
+                    onClick={() => {
+                        AuthService.logout();
+                        navigate('/login');
+                    }}
+                >
                     <AccountCircleRoundedIcon />
-                </StyledLink>
+                </StyledIconButton>
             </SettingWrapper>
         </Container>
     );

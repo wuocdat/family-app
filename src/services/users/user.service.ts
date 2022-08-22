@@ -21,11 +21,21 @@ const getProfile = (id: string) => {
     return api.get<UserInfo>(`/profile/${id}`);
 };
 
+const getAllUsers = () => {
+    return api.get<UserInfo[]>('/users');
+};
+
+const updateProfile = (id: string, data: any) => {
+    return api.patch(`/profile/${id}`, data);
+};
+
 const UserService = {
     getPublicContent,
     getUserBoard,
     getModeratorBoard,
     getAdminBoard,
     getProfile,
+    getAllUsers,
+    updateProfile,
 };
 export default UserService;

@@ -6,12 +6,13 @@ import MuiAccordionSummary, {
 } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { information } from '../../../config/constants';
+import { FC, useState } from 'react';
 import { Box } from '@mui/system';
 import { Button, Divider, DividerProps, Switch } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import { ExpandMoreOutlined } from '@mui/icons-material';
+import { UserInfo } from '../../../types';
+import EditProfileModal from '../Modal/EditProfileModal';
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 28,
@@ -113,6 +114,10 @@ interface ProfileItemProps {
     content: string | number;
 }
 
+interface SettingAccordionProps {
+    user: UserInfo;
+}
+
 const ProfileItem = ({ name, content }: ProfileItemProps) => {
     return (
         <Box sx={{ padding: '8px 0' }}>
@@ -129,9 +134,9 @@ const ProfileItem = ({ name, content }: ProfileItemProps) => {
     );
 };
 
-const SettingAccordion = () => {
+const SettingAccordion: FC<SettingAccordionProps> = ({ user }) => {
     const [expanded, setExpanded] = useState<string | false>(false);
-
+    const [openModal, setOpenModal] = useState(false);
     // set accordion to open or close
     const handleChange =
         (panel: string) =>
@@ -141,6 +146,13 @@ const SettingAccordion = () => {
 
     return (
         <div>
+            <EditProfileModal
+                open={openModal}
+                handleClose={() => {
+                    setOpenModal(false);
+                }}
+                user={user}
+            />
             <Accordion
                 expanded={expanded === 'panel1'}
                 onChange={handleChange('panel1')}
@@ -155,13 +167,16 @@ const SettingAccordion = () => {
                     <Box sx={{ position: 'relative' }}>
                         <ProfileItem
                             name="Name"
-                            content={information.username}
+                            content={user?.username || 'username'}
                         />
-                        <ProfileItem name="Email" content={information.email} />
-                        <ProfileItem name="Age" content={information.age} />
+                        <ProfileItem
+                            name="Email"
+                            content={user?.email || 'abc@123'}
+                        />
+                        <ProfileItem name="Age" content={user?.age || ''} />
                         <ProfileItem
                             name="Location"
-                            content={information.location}
+                            content={user?.address || ''}
                         />
                         <Button
                             sx={{
@@ -173,6 +188,9 @@ const SettingAccordion = () => {
                             variant="contained"
                             startIcon={<BorderColorOutlinedIcon />}
                             size="small"
+                            onClick={() => {
+                                setOpenModal(true);
+                            }}
                         >
                             Edit
                         </Button>

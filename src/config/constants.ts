@@ -15,7 +15,7 @@ export const userInformation: UserInfo = {
         'Delectus quos praesentium voluptatibus ullam ipsum. Incidunt expedita deleniti adipisci. Dolore beatae sint et tempora quia iure earum recusandae.',
     online: '2',
     createdAt: '374662711',
-    numberPhone: '868-807-1484',
+    phoneNumber: '868-807-1484',
     address: '500 Kunze Expressway',
 };
 
