@@ -45,7 +45,7 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ open, handleClose }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [isUpdating, setStatus] = useState(false);
     const {
-        id,
+        _id,
         username,
         firstName,
         lastName,
@@ -74,7 +74,7 @@ const EditProfileModal: FC<EditProfileModalProps> = ({ open, handleClose }) => {
     const updateProfile = async (reqData: any) => {
         try {
             setStatus(true);
-            const { data } = await UserService.updateProfile(id, reqData);
+            const { data } = await UserService.updateProfile(_id, reqData);
             enqueueSnackbar('update profile successfully!', {
                 variant: 'success',
             });

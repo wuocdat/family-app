@@ -5,20 +5,23 @@ import SideContentHeader from '../../components/Header/SideContentHeader';
 import SearchUserInput from '../../components/SearchInput/SearchUserInput';
 import UserItem from '../../components/UserItem/UserItem';
 import UserOfferItem from '../../components/UserItem/UserOfferItem';
-import { requestAPI } from '../../services/ApiServices';
+import TokenService from '../../services/auth/token.service';
+import ChatService from '../../services/chat/chat.service';
 import UserService from '../../services/users/user.service';
-import { Conversation, UserInfo } from '../../types';
+import { UserInfo } from '../../types';
+import { OneToOneConversationType } from '../../types/dto.interface';
 import ChatModal from './Modal/ChatModal';
 
 const defaultUser: UserInfo[] = [
     {
-        id: '',
+        _id: '',
         email: '',
         username: '',
     },
 ];
 
 const Chats: FC = () => {
+    const currentUser = TokenService.getUser();
     const [openModal, setOpenModal] = useState(false);
     const handleModalClose = () => {
         setOpenModal(false);
@@ -28,11 +31,12 @@ const Chats: FC = () => {
     };
 
     const [users, setUsers] = useState<UserInfo[]>(defaultUser);
-    const [conversations, setConversations] = useState<Conversation[]>();
+    const [conversations, setConversations] =
+        useState<OneToOneConversationType[]>();
 
     const fetchUsers = async () => {
         try {
-            const { data } = await UserService.getAllUsers();
+            const { data } = await UserService.getAllUsers(currentUser._id);
             data && setUsers(data);
             console.log('data', data);
         } catch (error) {
@@ -42,8 +46,8 @@ const Chats: FC = () => {
 
     const fetchConversations = async () => {
         try {
-            const { data } = await requestAPI.get<Conversation[]>(
-                '/conversations',
+            const { data } = await ChatService.getAllConversationByUserId(
+                currentUser._id,
             );
             data && setConversations(data);
         } catch (error) {

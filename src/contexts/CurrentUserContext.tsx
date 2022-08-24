@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+import { useSnackbar } from 'notistack';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import TokenService from '../services/auth/token.service';
 import UserService from '../services/users/user.service';
@@ -8,7 +10,7 @@ type ChildrenProps = {
 };
 
 const initialProfile: UserInfo = {
-    id: '',
+    _id: '',
     username: '',
     email: '',
 };
@@ -21,6 +23,8 @@ export const CurrentUserContext = createContext<CurrentUserContextType>({
 });
 
 const CurrentUserContextProvider = ({ children }: ChildrenProps) => {
+    const { enqueueSnackbar } = useSnackbar();
+
     const currentUser = TokenService.getUser();
 
     const [profile, setProfile] = useState<UserInfo>(initialProfile);
@@ -28,8 +32,22 @@ const CurrentUserContextProvider = ({ children }: ChildrenProps) => {
     const value = useMemo(() => ({ profile, setProfile }), [profile]);
 
     const fetchUsers = async () => {
-        const { data } = await UserService.getProfile(currentUser.id);
-        data && setProfile(data);
+        try {
+            const { data } = await UserService.getProfile(currentUser._id);
+            data && setProfile(data);
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                if (
+                    error.response &&
+                    error.response?.data &&
+                    error.response?.data.message
+                )
+                    enqueueSnackbar(error.response.data.message, {
+                        variant: 'error',
+                    });
+                else enqueueSnackbar(error.message, { variant: 'error' });
+            } else console.log(error);
+        }
     };
 
     useEffect(() => {

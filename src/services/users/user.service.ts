@@ -21,8 +21,8 @@ const getProfile = (id: string) => {
     return api.get<UserInfo>(`/profile/${id}`);
 };
 
-const getAllUsers = () => {
-    return api.get<UserInfo[]>('/users');
+const getAllUsers = (id: string) => {
+    return api.get<UserInfo[]>(`/users/${id}`);
 };
 
 const updateProfile = (id: string, data: any) => {

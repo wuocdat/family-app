@@ -1,17 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 
-export type FetchData<T> = {
-    data?: T;
-    type?: string;
-};
-
 export interface RoleType {
     _id: string;
     name: string;
 }
 
 export interface UserInfo {
-    id: string;
+    _id: string;
     username: string;
     firstName?: string;
     lastName?: string;
@@ -31,19 +26,11 @@ export interface GroupType {
     data: Array<UserInfo>;
 }
 
-export interface Conversation {
-    friend: UserInfo;
-    id: string;
-    lastMessage: LastMessage;
-}
-
-export interface LastMessage {
-    lastContent: string;
-    sender: string;
-    lastTime: string;
-}
-
 export type CurrentUserContextType = {
     profile: UserInfo;
     setProfile: Dispatch<SetStateAction<UserInfo>>;
 };
+
+export interface AnyCondition {
+    [key: string]: any;
+}

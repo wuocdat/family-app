@@ -5,7 +5,12 @@ import {
     DeleteSweepRounded,
 } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
-import { FC, useState } from 'react';
+import { AxiosError } from 'axios';
+import { useSnackbar } from 'notistack';
+import { FC, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import TokenService from '../../services/auth/token.service';
+import ChatService from '../../services/chat/chat.service';
 import { UserInfo } from '../../types';
 import StyledMenu from '../Menu/Menu';
 import StyledMenuItem from '../MenuItem/MenuItem';
@@ -15,6 +20,12 @@ interface UserNameItemProps {
 }
 
 const UserNameItem: FC<UserNameItemProps> = ({ user }) => {
+    const navigate = useNavigate();
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const currentUser = useMemo(() => TokenService.getUser(), []);
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,6 +34,31 @@ const UserNameItem: FC<UserNameItemProps> = ({ user }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleItemClick = async () => {
+        try {
+            const { data } = await ChatService.getConversationByMemberIds([
+                currentUser._id,
+                user._id,
+            ]);
+            if (data) {
+                navigate(`${data._id}`, { replace: true });
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                if (
+                    error.response &&
+                    error.response?.data &&
+                    error.response?.data.message
+                )
+                    enqueueSnackbar(error.response.data.message, {
+                        variant: 'error',
+                    });
+                else enqueueSnackbar(error.message, { variant: 'error' });
+            } else console.log(error);
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -36,6 +72,7 @@ const UserNameItem: FC<UserNameItemProps> = ({ user }) => {
                     cursor: 'pointer',
                 },
             }}
+            onClick={handleItemClick}
         >
             <Typography
                 sx={{

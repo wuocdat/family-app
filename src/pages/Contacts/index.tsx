@@ -9,15 +9,18 @@ import UserGroupNameItem from '../../components/UserItem/UserNameGroupItem';
 import { GroupType, UserInfo } from '../../types';
 import ContactModal from './Modal/ContactModal';
 import UserService from '../../services/users/user.service';
+import TokenService from '../../services/auth/token.service';
 
 const Contacts: FC = () => {
+    const currentUser = TokenService.getUser();
+
     const [openModal, setOpenModal] = useState(false);
     const [users, setUsers] = useState<UserInfo[]>();
     const [userGroups, setUserGroups] = useState<GroupType[]>();
 
     const fetchUsers = async () => {
         try {
-            const { data } = await UserService.getAllUsers();
+            const { data } = await UserService.getAllUsers(currentUser._id);
             if (data) {
                 setUsers(data);
             }

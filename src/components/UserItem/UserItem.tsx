@@ -1,7 +1,7 @@
 import { Avatar, Badge, Box, styled, Typography } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Conversation } from '../../types';
+import { OneToOneConversationType } from '../../types/dto.interface';
 import { collapseText } from '../../utils';
 
 const ItemWrapper = styled('div')(({ theme }) => ({
@@ -19,17 +19,17 @@ const ItemWrapper = styled('div')(({ theme }) => ({
 }));
 
 interface UserItemProps {
-    conversation: Conversation;
+    conversation: OneToOneConversationType;
 }
 
 const UserItem: FC<UserItemProps> = ({ conversation }) => {
     const navigate = useNavigate();
+    const { lastMessage, timestamp } = conversation;
     const { online, username, src } = conversation.friend;
-    const { lastContent, lastTime } = conversation.lastMessage;
     return (
         <ItemWrapper
             onClick={() => {
-                navigate(`/${conversation.id}`);
+                navigate(`${conversation._id}`);
             }}
         >
             <Badge
@@ -67,14 +67,16 @@ const UserItem: FC<UserItemProps> = ({ conversation }) => {
                 <Typography color="text.primary">{username}</Typography>
                 {/* <Typography variant="body2" color="#abb4d2"> */}
                 <Typography variant="body2" color="text.secondary">
-                    {lastContent.length > 45
-                        ? collapseText(lastContent, 50)
-                        : lastContent}
+                    {!!lastMessage
+                        ? lastMessage.length > 45
+                            ? collapseText(lastMessage, 50)
+                            : lastMessage
+                        : 'No pain no gain'}
                 </Typography>
             </Box>
             {/* <Typography variant="body2" color="#abb4d2"> */}
             <Typography variant="body2" color="text.secondary">
-                {lastTime}
+                {timestamp || '10:00pm'}
             </Typography>
         </ItemWrapper>
     );

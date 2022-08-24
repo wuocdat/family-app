@@ -45,7 +45,7 @@ export default function SignIn() {
     const { enqueueSnackbar } = useSnackbar();
 
     if (currentUser) {
-        return <Navigate to="/" />;
+        return <Navigate to="/activities" />;
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -59,7 +59,7 @@ export default function SignIn() {
             try {
                 const response = await AuthService.login(username, password);
                 console.log(response);
-                response && navigate('/', { replace: true });
+                response && navigate('/activities', { replace: true });
             } catch (error) {
                 if (
                     error instanceof AxiosError &&

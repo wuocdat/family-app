@@ -6,7 +6,7 @@ import {
     styled,
     Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import ConversationBoxFooter from './ConversationBoxFooter/ConversationBoxFooter';
 import ConversationHeader from './ConversationHeader/ConversationHeader';
@@ -16,9 +16,7 @@ import { FiberManualRecord } from '@mui/icons-material';
 import AccordionProfile from '../../components/Accordion/Accordion';
 import LeftMessageItem from '../../components/MessageItem/LeftMessageItem';
 import RightMessageItem from '../../components/MessageItem/RightMessageItem';
-import { Conversation as ConversationType, UserInfo } from '../../types';
-import { requestAPI } from '../../services/ApiServices';
-import { useParams } from 'react-router-dom';
+import { ConversationContext } from '../../contexts/ConversationContext';
 
 const ConversationWrapper = styled('div')(({ theme }) => ({
     width: '100%',
@@ -29,7 +27,6 @@ const ConversationWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Conversation = () => {
-    let { _id } = useParams();
     //drawer
     const [drawerOpen, setOpenDrawer] = useState(false);
 
@@ -41,22 +38,8 @@ const Conversation = () => {
         setOpenDrawer(false);
     };
 
-    const [friend, setFriend] = useState<UserInfo>();
-
-    const fetchUser = async (id: string) => {
-        try {
-            const { data } = await requestAPI.get<ConversationType>(
-                `/conversations/${id}`,
-            );
-            data && setFriend(data.friend);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        _id && fetchUser(_id);
-    }, [_id]);
+    const conversation = useContext(ConversationContext);
+    const { friend } = conversation;
 
     return (
         <ConversationWrapper>

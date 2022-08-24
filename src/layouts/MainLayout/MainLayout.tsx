@@ -5,6 +5,7 @@ import { HideOnlyMobile, ShowOnlyMobile } from '../../components/Media/mobile';
 import NotFound from '../../components/NotFound/NotFound';
 import BottomMenu from '../../components/SideMenu/BottomMenu';
 import SideMenu from '../../components/SideMenu/SideMenu';
+import { ConversationContextProvider } from '../../contexts/ConversationContext';
 import CurrentUserContextProvider from '../../contexts/CurrentUserContext';
 import Chats from '../../pages/Chats';
 import Contacts from '../../pages/Contacts';
@@ -56,7 +57,11 @@ const MainLayout = () => {
                             <Routes>
                                 <Route
                                     path="/:_id"
-                                    element={<Conversation />}
+                                    element={
+                                        <ConversationContextProvider>
+                                            <Conversation />
+                                        </ConversationContextProvider>
+                                    }
                                 />
                                 {/* <Route
                                 path="/user/:_useId"
@@ -70,7 +75,14 @@ const MainLayout = () => {
                 </HideOnlyMobile>
                 <ShowOnlyMobile>
                     <Routes>
-                        <Route path="/:_id" element={<Conversation />} />
+                        <Route
+                            path="/:_id"
+                            element={
+                                <ConversationContextProvider>
+                                    <Conversation />
+                                </ConversationContextProvider>
+                            }
+                        />
                         <Route
                             path="/"
                             element={
